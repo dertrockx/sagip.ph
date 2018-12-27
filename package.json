@@ -1,0 +1,21 @@
+{
+  "name": "sagip.ph",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "rrsilaya <rrsilaya@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "awesome-typescript-loader": "^5.2.1",
+    "backpack-core": "^0.8.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0",
+    "reflect-metadata": "^0.1.12",
+    "typeorm": "^0.2.9",
+    "typescript": "^3.2.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.16.0",
+    "@types/node": "^10.12.18"
+  }
+}
