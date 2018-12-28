@@ -4,11 +4,18 @@
   "main": "index.js",
   "author": "rrsilaya <rrsilaya@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "backpack",
+    "build": "backpack build",
+    "seed": "mysql -u root -p < ./src/config/database.sql"
+  },
   "dependencies": {
     "awesome-typescript-loader": "^5.2.1",
     "backpack-core": "^0.8.3",
     "body-parser": "^1.18.3",
+    "class-validator": "^0.9.1",
     "express": "^4.16.4",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "reflect-metadata": "^0.1.12",
     "typeorm": "^0.2.9",

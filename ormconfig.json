@@ -7,6 +7,6 @@
   "database": "sagipph",
   "synchronize": true,
   "entities": [
-    "src/entity/**/*.ts"
+    "src/entity/**/model.ts"
   ]
 }
