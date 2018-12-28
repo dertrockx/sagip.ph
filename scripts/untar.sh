@@ -6,4 +6,4 @@ cd /home/rrsilaya/apps/sagip.ph && \
 tar zxvf package.tgz -C . && \
 mv build/package.json . && \
 npm install && \
-node build/main.js
+pm2 restart build/main.js
