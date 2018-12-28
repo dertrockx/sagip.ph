@@ -3,7 +3,7 @@ node_js:
 - 10.8.0
 addons:
   sshknownhosts:
-  - 35.243.90.83
+  - 35.243.97.253
 branches:
   only:
   - master
@@ -11,15 +11,15 @@ env:
   global:
   - REMOTE_APP_DIR=/home/rrsilaya/apps/sagip.ph/
   - REMOTE_USER=rrsilaya
-  - REMOTE_HOST=35.243.90.83
+  - REMOTE_HOST=35.243.97.253
   - PORT=8081
 install:
 - npm install
 before_script:
 - openssl aes-256-cbc -K $encrypted_16978077434a_key -iv $encrypted_16978077434a_iv -in deploy.enc -out deploy -d
 - chmod 600 deploy && mv deploy ~/.ssh/idrsa
-- echo -e "Host 35.243.90.83\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-- echo -e "Host 35.243.90.83:22\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host 35.243.97.253\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+- echo -e "Host 35.243.97.253:22\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 script:
 - npm run build
 after_success:
