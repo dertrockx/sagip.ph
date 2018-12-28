@@ -1,0 +1,23 @@
+language: nodejs
+nodejs:
+- 10.8.0
+addons:
+  sshknownhosts:
+  - 35.243.90.83
+branches:
+  only:
+  - master
+env:
+  global:
+  - REMOTE_APP_DIR=~/apps/sagip.ph/
+  - REMOTE_USER=rrsilaya
+  - REMOTE_HOST=35.243.90.83
+  - PORT=8081
+install:
+- yarn install
+beforescript:
+- chmod 600 deploy && mv deploy ~/.ssh/idrsa
+script:
+- yarn build
+after_success:
+- "./srcipts/deploy.sh"
