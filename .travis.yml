@@ -9,7 +9,7 @@ branches:
   - master
 env:
   global:
-  - REMOTE_APP_DIR=~/apps/sagip.ph/
+  - REMOTE_APP_DIR=/home/rrsilaya/apps/sagip.ph/
   - REMOTE_USER=rrsilaya
   - REMOTE_HOST=35.243.90.83
   - PORT=8081
