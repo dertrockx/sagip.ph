@@ -18,6 +18,6 @@ install:
 beforescript:
 - chmod 600 deploy && mv deploy ~/.ssh/idrsa
 script:
-- npm build
+- npm run build
 after_success:
 - "./srcipts/deploy.sh"
