@@ -36,7 +36,7 @@ class App {
   private _setPort = (): number => +process.env.PORT || 8081;
 
   private _setRoutes = (): void => {
-    this.app.use('/api', router);
+    this.app.use('/v1/', router);
   }
 }
 
