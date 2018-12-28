@@ -20,4 +20,4 @@ beforescript:
 script:
 - npm run build
 after_success:
-- "./srcipts/deploy.sh"
+- "./scripts/deploy.sh"
