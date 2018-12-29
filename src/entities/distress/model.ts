@@ -6,21 +6,21 @@ import {
 import { ValidEntity } from '../../decorators';
 
 @Entity()
-export class User extends ValidEntity {
+export class Distress extends ValidEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  timestamp: Date;
 
   @Column()
-  phoneNumber: string;
+  case: string;
 
   @Column()
-  accessToken: string;
+  longitude: string;
 
   @Column()
-  friendToken: string;
+  latitude: string;
 }
 
-export default User;
+export default Distress;

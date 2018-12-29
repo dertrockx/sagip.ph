@@ -1,4 +1,5 @@
 import { createConnection } from 'typeorm';
+import * as Entities from '../entities';
 
 const connection = app => createConnection({
   type: 'mariadb',
@@ -12,9 +13,7 @@ const connection = app => createConnection({
   password: 'sagipph',
   database: 'sagipph',
 
-  entities: [
-    '../entities/**/model.ts'
-  ]
+  entities: [ ...Object.values(Entities) ]
 }).then(() => {
   console.log('> Successfully connected to database');
 

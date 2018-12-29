@@ -5,5 +5,6 @@ const router = Router();
 
 router
   .get('/user', Ctrl.getUser)
+  .get('/sms/redirect', Ctrl.registerUser)
 
 export default router;
