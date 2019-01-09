@@ -2,8 +2,11 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
 } from 'typeorm';
 import { ValidEntity } from '../../decorators';
+
+import { Confirmation } from '../sms/model';
 
 @Entity()
 export class User extends ValidEntity {
@@ -21,6 +24,15 @@ export class User extends ValidEntity {
 
   @Column()
   friendToken: string;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  timestamp: Date;
+
+  @Column({ default: () => true })
+  isActive: boolean;
+
+  @OneToMany(type => Confirmation, confirmation => confirmation.user)
+  confirmation: string;
 }
 
 export default User;

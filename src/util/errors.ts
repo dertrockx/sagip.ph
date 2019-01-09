@@ -8,6 +8,7 @@ const ERROR_CODES = {
 
 export const throwError = (res, err, payload?, status = 500): void => {
   payload = payload || ERROR_CODES[status];
+  console.log(err);
 
   if (err && err.code === 'INVALID_INPUT') {
     res.status(400).json({
