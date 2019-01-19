@@ -1,7 +1,7 @@
 import * as express from 'express';
 
 import { Confirmation, User } from '../';
-import { types, generateCode } from '../code/model';
+import { types } from '../code/model';
 import { throwError, Sms } from '../../util';
 
 export const registerUser = async (req, res): Promise<express.Response> => {
@@ -15,12 +15,11 @@ export const registerUser = async (req, res): Promise<express.Response> => {
     const sms = new Sms();
 
     // Create Confirmation Code
-    const code = generateCode();
     Object.assign(confirmation, {
       type: types.REGISTRATION,
-      code,
       timestamp: new Date(),
     });
+    const code = confirmation.generateCode();
     await confirmation.save();
 
     // Update User

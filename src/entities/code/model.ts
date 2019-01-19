@@ -23,10 +23,15 @@ export class Confirmation extends ValidEntity {
 
   @OneToOne(type => User, user => user.confirmation)
   user: Promise<User>;
+
+  generateCode(): string {
+    const code = randomatic('0A', 6);
+    this.code = code;
+
+    return code
+  }
 }
 
 export enum types {
   REGISTRATION = 'REGISTRATION'
 }
-
-export const generateCode = (): string => randomatic('0A', 6);

@@ -29,6 +29,29 @@ export class User extends ValidEntity {
   @OneToOne(type => Confirmation, confirmation => confirmation.user)
   @JoinColumn()
   confirmation: Promise<Confirmation>;
+
+  confirmCode(code: string): Promise<void> {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = this;
+        const confirmation = await this.confirmation;
+
+        if (confirmation && confirmation.code === code) {
+          Object.assign(user, { confirmation: null });
+          Object.assign(code, { isActive: false });
+    
+          await this.save();
+          await confirmation.save();
+  
+          return resolve();
+        }
+  
+        return reject({ error: 'Incorrect confirmation code' });
+      } catch(err) {
+        return reject(err);
+      }
+    });
+  }
 }
 
 export default User;

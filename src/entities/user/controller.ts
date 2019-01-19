@@ -40,21 +40,7 @@ export const confirmUser = async (req, res): Promise<express.Response> => {
       );
     }
 
-    const confirmation = await user.confirmation;
-    if (!confirmation.isActive || req.body.code !== confirmation.code) {
-      return throwError(
-        res,
-        null,
-        { error: 'Incorrect confirmation code', payload: req.body },
-        400
-      );
-    }
-
-    Object.assign(user, { confirmation: null });
-    Object.assign(confirmation, { isActive: false });
-    await confirmation.save();
-    await user.save();
-
+    await user.confirmCode(req.body.code);
     return res.sendStatus(200);
   } catch (err) {
     return throwError(res, err);
