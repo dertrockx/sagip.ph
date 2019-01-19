@@ -1,7 +1,7 @@
 import * as express from 'express';
 
-import { Confirmation, types, generateCode } from './model';
-import { User } from '../user/model';
+import { Confirmation, User } from '../';
+import { types, generateCode } from '../code/model';
 import { throwError, Sms } from '../../util';
 
 export const registerUser = async (req: express.Request, res: express.Response): Promise<express.Response> => {

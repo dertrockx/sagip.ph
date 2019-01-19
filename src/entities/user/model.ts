@@ -6,7 +6,7 @@ import {
 } from 'typeorm';
 import { ValidEntity } from '../../decorators';
 
-import { Confirmation } from '../sms/model';
+import { Confirmation } from '../';
 
 @Entity()
 export class User extends ValidEntity {
