@@ -22,7 +22,7 @@ export class Confirmation extends ValidEntity {
   isActive: boolean;
 
   @OneToOne(type => User, user => user.confirmation)
-  user: User;
+  user: Promise<User>;
 }
 
 export enum types {

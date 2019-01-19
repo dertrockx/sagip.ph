@@ -5,5 +5,6 @@ const router = Router();
 
 router
   .post('/register', Ctrl.registerUser)
+  .post('/confirm/:userId', Ctrl.confirmUser)
 
 export default router;
