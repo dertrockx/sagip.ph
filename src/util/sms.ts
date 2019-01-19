@@ -12,15 +12,19 @@ export class Sms {
   public send = (content: string, address: string, access_token: string): Promise<any> => {
     return new Promise(async (resolve, reject) => {
       try {
-        const { data } = await axios.post(this.url + access_token, {
-          outboundSMSMessageRequest: {
-            senderAddress: this.senderAddress,
-            outboundSMSTextMessage: { message: content },
-            address
-          }
-        });
+        if (!process.env.NO_SMS) {
+          const { data } = await axios.post(this.url + access_token, {
+            outboundSMSMessageRequest: {
+              senderAddress: this.senderAddress,
+              outboundSMSTextMessage: { message: content },
+              address
+            }
+          });
+  
+          return resolve(data);
+        }
 
-        return resolve(data);
+        return resolve(null);
       } catch (err) {
         console.log(err);
         console.log(err.message);

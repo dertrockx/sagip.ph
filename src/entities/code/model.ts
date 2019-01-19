@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
 import { ValidEntity } from '../../decorators';
 import * as randomatic from 'randomatic';
 
@@ -21,7 +21,7 @@ export class Confirmation extends ValidEntity {
   @Column({ default: () => true })
   isActive: boolean;
 
-  @ManyToOne(type => User, user => user.confirmation)
+  @OneToOne(type => User, user => user.confirmation)
   user: User;
 }
 

@@ -1,9 +1,4 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from 'typeorm';
 import { ValidEntity } from '../../decorators';
 
 import { Confirmation } from '../';
@@ -31,7 +26,8 @@ export class User extends ValidEntity {
   @Column({ default: () => true })
   isActive: boolean;
 
-  @OneToMany(type => Confirmation, confirmation => confirmation.user)
+  @OneToOne(type => Confirmation, confirmation => confirmation.user)
+  @JoinColumn()
   confirmation: string;
 }
 
