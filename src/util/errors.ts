@@ -6,17 +6,17 @@ const ERROR_CODES = {
   '500': { status: 500, message: 'Internal server error' },
 };
 
-export const throwError = (res, err, payload?, status = 500): void => {
+export const throwError = (res, err, payload?, status = 500) => {
   payload = payload || ERROR_CODES[status];
   console.log(err);
 
   if (err && err.code === 'INVALID_INPUT') {
-    res.status(400).json({
+    return res.status(400).json({
       ...ERROR_CODES[400],
       message: 'Invalid input',
       errors: err.errors,
     });
   } else {
-    res.status(status).json(payload);
+    return res.status(status).json(payload);
   }
 };

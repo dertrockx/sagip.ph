@@ -28,7 +28,7 @@ export class User extends ValidEntity {
 
   @OneToOne(type => Confirmation, confirmation => confirmation.user)
   @JoinColumn()
-  confirmation: string;
+  confirmation: Confirmation;
 }
 
 export default User;
