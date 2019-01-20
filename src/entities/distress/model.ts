@@ -18,10 +18,10 @@ export class Distress extends ValidEntity {
   description: string;
 
   @Column()
-  longitude: string;
+  longitude: number;
 
   @Column()
-  latitude: string;
+  latitude: number;
 
   @ManyToOne(type => User, user => user.distress)
   user: Promise<User>;
