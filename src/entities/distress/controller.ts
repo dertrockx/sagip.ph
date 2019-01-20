@@ -53,3 +53,62 @@ export const getDistress = async (req, res): Promise<express.Response> => {
     return throwError(res, err);
   }
 }
+
+export const getDistressById = async (req, res): Promise<express.Response> => {
+  const { long, lat } = req.query;
+  const { distressId } = req.params;
+
+  try {
+    let distress: any[] | any = getRepository(Distress)
+      .createQueryBuilder('distress')
+      .leftJoin('distress.user', 'user')
+      .select([
+        'distress.id',
+        'nature',
+        'distress.timestamp',
+        'description',
+        'longitude',
+        'latitude',
+
+        'user.id',
+        'name',
+        'phoneNumber'
+      ]);
+
+    if (long && lat) {
+      distress = distress.addSelect(sphericalLawOfCosines(long, lat), 'distance');
+    }
+    
+    const {
+      distress_id,
+      distress_timestamp,
+      user_id,
+      nature,
+      description,
+      longitude,
+      latitude,
+      name,
+      phoneNumber,
+      distance
+    } = await distress.where('distress.id = :distressId', { distressId }).getRawOne();
+
+    return res.json({
+      distress: {
+        id: distress_id,
+        nature,
+        timestamp: distress_timestamp,
+        description,
+        longitude,
+        latitude,
+        distance,
+        user: {
+          id: user_id,
+          name,
+          phoneNumber,
+        }
+      }
+    });
+  } catch (err) {
+    return throwError(res, err);
+  }
+}
