@@ -2,7 +2,7 @@ import * as express from 'express';
 import { getRepository } from 'typeorm';
 
 import { Distress } from '../';
-import { throwError } from '../../util';
+import { throwError, sphericalLawOfCosines } from '../../util';
 
 export const addDistress = (user, { nature, long, lat, description }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
@@ -31,7 +31,6 @@ export const getDistress = async (req, res): Promise<express.Response> => {
     [long, lat, distance] = [long, lat, distance].map(parseFloat);
 
     if (long && lat && distance) {
-      const KILOMETER = 6371;
       const distress = await getRepository(Distress)
         .createQueryBuilder('distress')
         .select([
@@ -42,19 +41,7 @@ export const getDistress = async (req, res): Promise<express.Response> => {
           'longitude',
           'latitude'
         ])
-        .addSelect(`
-          (
-            ${KILOMETER} *
-            ACOS(
-              SIN(RADIANS(${long})) *
-              SIN(RADIANS(distress.latitude))
-              +
-              COS(RADIANS(${long})) *
-              COS(RADIANS(distress.latitude)) *
-              COS(RADIANS(distress.longitude) - RADIANS(${lat}))
-            )
-          )
-        `, 'distance')
+        .addSelect(sphericalLawOfCosines(long, lat), 'distance')
         .having('distance <= :distance', { distance })
         .getRawMany();
 
