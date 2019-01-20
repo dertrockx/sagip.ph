@@ -70,7 +70,6 @@ export const receiveSMS = async (req, res): Promise<express.Response> => {
         select: ['message'],
         where: { multipartId }
       });
-      console.log(messages);
 
       parseSMS(messages.reduce((msg, entry) => `${msg}${entry.message}`, ''));
     }
