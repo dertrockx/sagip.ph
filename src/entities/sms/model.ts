@@ -17,13 +17,16 @@ export class Sms extends ValidEntity {
   message: string;
 
   @Column()
+  messageId: string;
+
+  @Column()
   fragments: number;
 
   @Column()
-  multipartRef: string;
+  multipartId: number;
 
   @Column()
-  multipartId: number;
+  multipartRef: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;

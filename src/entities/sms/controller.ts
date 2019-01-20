@@ -1,6 +1,8 @@
 import * as express from 'express';
+import { getRepository } from 'typeorm';
 
-import { Confirmation, User } from '../';
+import { Confirmation, User, Sms as Message } from '../';
+import parseSMS from './parser';
 import { types } from '../code/model';
 import { throwError, Sms } from '../../util';
 
@@ -37,3 +39,44 @@ export const registerUser = async (req, res): Promise<express.Response> => {
     return throwError(res, err);
   }
 };
+
+export const receiveSMS = async (req, res): Promise<express.Response> => {
+  const { inboundSMSMessageList } = req.body;
+  const { inboundSMSMessage, numberOfMessagesInThisBatch: fragments } = inboundSMSMessageList;
+  const {
+    messageId,
+    message,
+    senderAddress: src,
+    multipartRefId: multipartId,
+    multipartSeqNum: multipartRef
+  } = inboundSMSMessage[0];
+
+  try {
+    const sms = new Message();
+    Object.assign(sms, {
+      sender: `0${src.slice(7)}`,
+      message,
+      messageId,
+      fragments,
+      multipartId,
+      multipartRef
+    });
+    await sms.save();
+
+    if (+fragments === 1) {
+      parseSMS(message);
+    } else if (+fragments === +multipartRef) {
+      const messages = await getRepository(Message).find({
+        select: ['message'],
+        where: { multipartId }
+      });
+      console.log(messages);
+
+      parseSMS(messages.reduce((msg, entry) => `${msg}${entry.message}`, ''));
+    }
+
+    return res.sendStatus(200);
+  } catch (err) {
+    return throwError(res, err);
+  }
+}
