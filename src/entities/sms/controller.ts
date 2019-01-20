@@ -64,14 +64,14 @@ export const receiveSMS = async (req, res): Promise<express.Response> => {
     await sms.save();
 
     if (+fragments === 1) {
-      parseSMS(message);
+      parseSMS(sms.sender, message);
     } else if (+fragments === +multipartRef) {
       const messages = await getRepository(Message).find({
         select: ['message'],
         where: { multipartId }
       });
 
-      parseSMS(messages.reduce((msg, entry) => `${msg}${entry.message}`, ''));
+      parseSMS(messages[0].sender, messages.reduce((msg, entry) => `${msg}${entry.message}`, ''));
     }
 
     return res.sendStatus(200);

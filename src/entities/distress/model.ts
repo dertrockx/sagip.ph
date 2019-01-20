@@ -1,26 +1,30 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { ValidEntity } from '../../decorators';
+
+import { User } from '../';
 
 @Entity()
 export class Distress extends ValidEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
 
   @Column()
-  case: string;
+  nature: string;
+
+  @Column()
+  description: string;
 
   @Column()
   longitude: string;
 
   @Column()
   latitude: string;
+
+  @ManyToOne(type => User, user => user.distress)
+  user: Promise<User>;
 }
 
 export default Distress;
