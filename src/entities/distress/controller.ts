@@ -31,19 +31,55 @@ export const getDistress = async (req, res): Promise<express.Response> => {
     [long, lat, distance] = [long, lat, distance].map(parseFloat);
 
     if (long && lat && distance) {
-      const distress = await getRepository(Distress)
+      let distress = await getRepository(Distress)
         .createQueryBuilder('distress')
+        .leftJoin('distress.user', 'user')
         .select([
-          'id',
+          'distress.id',
           'nature',
-          'timestamp',
+          'distress.timestamp',
           'description',
           'longitude',
-          'latitude'
+          'latitude',
+
+          'user.id',
+          'name',
+          'phoneNumber'
         ])
         .addSelect(sphericalLawOfCosines(long, lat), 'distance')
+        .where('distress.isActive = TRUE')
         .having('distance <= :distance', { distance })
         .getRawMany();
+
+      distress = distress.map(distress => {
+        const {
+          distress_id,
+          distress_timestamp,
+          user_id,
+          nature,
+          description,
+          longitude,
+          latitude,
+          name,
+          phoneNumber,
+          distance
+        } = distress;
+
+        return {
+          id: distress_id,
+          timestamp: distress_timestamp,
+          nature,
+          description,
+          longitude,
+          latitude,
+          distance,
+          user: {
+            id: user_id,
+            name,
+            phoneNumber,
+          }
+        };
+      });
 
       return res.json({ distress, count: distress.length });
     }
@@ -90,7 +126,7 @@ export const getDistressById = async (req, res): Promise<express.Response> => {
       name,
       phoneNumber,
       distance
-    } = await distress.where('distress.id = :distressId', { distressId }).getRawOne();
+    } = await distress.where('distress.id = :distressId AND distress.isActive = TRUE', { distressId }).getRawOne();
 
     return res.json({
       distress: {
@@ -108,6 +144,25 @@ export const getDistressById = async (req, res): Promise<express.Response> => {
         }
       }
     });
+  } catch (err) {
+    return throwError(res, err);
+  }
+}
+
+export const resolveDistress = async (req, res): Promise<express.Response> => {
+  const { distressId } = req.params;
+
+  try {
+    const distress = await Distress.findOne(distressId);
+
+    if (!distress) {
+      return throwError(res, null, { error: 'Distress does not exist' }, 404);
+    }
+
+    distress.isActive = false;
+    await distress.save();
+
+    return res.json({ id: distress.id });
   } catch (err) {
     return throwError(res, err);
   }

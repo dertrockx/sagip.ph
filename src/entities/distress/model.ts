@@ -23,6 +23,9 @@ export class Distress extends ValidEntity {
   @Column({ type: 'double' })
   latitude: number;
 
+  @Column({ default: () => true })
+  isActive: boolean;
+
   @ManyToOne(type => User, user => user.distress)
   user: Promise<User>;
 }
