@@ -1,8 +1,8 @@
 import * as express from 'express';
 import { getRepository } from 'typeorm';
 
-import { User } from '../';
-import { throwError } from '../../util';
+import { User } from '@models';
+import { throwError } from '@util';
 
 export const registerUser = async (req, res): Promise<express.Response> => {
   try {

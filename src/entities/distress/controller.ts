@@ -1,8 +1,8 @@
 import * as express from 'express';
 import { getRepository } from 'typeorm';
 
-import { Distress } from '../';
-import { throwError, sphericalLawOfCosines } from '../../util';
+import { Distress } from '@models';
+import { throwError, sphericalLawOfCosines } from '@util';
 
 export const addDistress = (user, { nature, long, lat, description }): Promise<any> => {
   return new Promise(async (resolve, reject) => {

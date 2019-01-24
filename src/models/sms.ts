@@ -3,10 +3,10 @@ import {
   PrimaryGeneratedColumn,
   Column,
 } from 'typeorm';
-import { ValidEntity } from '../../decorators';
+import { ValidEntity } from '@decorators';
 
 @Entity()
-export class Sms extends ValidEntity {
+class Sms extends ValidEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -35,3 +35,5 @@ export class Sms extends ValidEntity {
 export enum types {
   REGISTRATION = 'REGISTRATION',
 }
+
+export default Sms;

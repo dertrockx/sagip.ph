@@ -1,5 +1,5 @@
 import { createConnection } from 'typeorm';
-import * as Entities from '../entities';
+import * as Entities from '@models';
 
 const connection = app => createConnection({
   type: 'mariadb',

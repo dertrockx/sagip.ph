@@ -1,10 +1,11 @@
 import * as express from 'express';
 import { getRepository } from 'typeorm';
 
-import { Confirmation, User, Sms as Message } from '../';
+import { Confirmation, User, Sms as Message } from '@models';
+import { throwError, Sms } from '@util';
+import { types } from '@models/code';
+
 import parseSMS from './parser';
-import { types } from '../code/model';
-import { throwError, Sms } from '../../util';
 
 export const registerUser = async (req, res): Promise<express.Response> => {
   const { access_token, subscriber_number } = req.query;

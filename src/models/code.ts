@@ -1,11 +1,11 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
-import { ValidEntity } from '../../decorators';
 import * as randomatic from 'randomatic';
 
-import { User } from '../';
+import { ValidEntity } from '@decorators';
+import { User } from '@models';
 
 @Entity()
-export class Confirmation extends ValidEntity {
+class Confirmation extends ValidEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -35,3 +35,5 @@ export class Confirmation extends ValidEntity {
 export enum types {
   REGISTRATION = 'REGISTRATION'
 }
+
+export default Confirmation;

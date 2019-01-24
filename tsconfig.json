@@ -5,7 +5,14 @@
       "es2015.promise"
     ],
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "baseUrl": "src",
+    "paths": {
+      "@models": ["models/"],
+      "@models/*": ["models/*"],
+      "@decorators": ["decorators/"],
+      "@util": ["util/"],
+    }
   }
 }
 

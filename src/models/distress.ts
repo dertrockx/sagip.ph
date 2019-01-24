@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
-import { ValidEntity } from '../../decorators';
 
-import { User, Comment } from '../';
+import { ValidEntity } from '@decorators';
+import { User, Comment } from '@models';
 
 @Entity()
-export class Distress extends ValidEntity {
+class Distress extends ValidEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -1,4 +1,4 @@
-import { User } from '../';
+import { User } from '@models';
 import * as Distress from '../distress/controller';
 
 enum intent {
