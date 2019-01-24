@@ -7,6 +7,8 @@ import { throwError, sphericalLawOfCosines } from '../../util';
 export const addDistress = (user, { nature, long, lat, description }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
+      // @TODO: Throttle distress requests.
+
       const distress = new Distress();
       Object.assign(distress, {
         nature,
