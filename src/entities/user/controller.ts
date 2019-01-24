@@ -29,25 +29,6 @@ export const registerUser = async (req, res): Promise<express.Response> => {
   }
 };
 
-export const confirmUser = async (req, res): Promise<express.Response> => {
-  try {
-    const user = await User.findOne({ id: req.params.userId });
-    if (!user) {
-      return throwError(
-        res,
-        null,
-        { error: 'User does not exist', payload: req.body },
-        404
-      );
-    }
-
-    await user.confirmCode(req.body.code);
-    return res.sendStatus(200);
-  } catch (err) {
-    return throwError(res, err);
-  }
-};
-
 export const getUser = async (req, res): Promise<express.Response> => {
   try {
     const user = await getRepository(User).findOne({

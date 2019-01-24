@@ -4,8 +4,7 @@ import * as Ctrl from './controller';
 const router = Router();
 
 router
-  .post('/register', Ctrl.registerUser)
-  .get('/user', Ctrl.getUsers)
-  .get('/user/:userId', Ctrl.getUser)
+  .post('/login', Ctrl.login)
+  .post('/confirm/:userId', Ctrl.confirmUser)
 
 export default router;

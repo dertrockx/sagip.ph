@@ -33,7 +33,8 @@ class Confirmation extends ValidEntity {
 }
 
 export enum types {
-  REGISTRATION = 'REGISTRATION'
+  REGISTRATION = 'REGISTRATION',
+  LOGIN = 'LOGIN',
 }
 
 export default Confirmation;
