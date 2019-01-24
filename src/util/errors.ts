@@ -17,6 +17,11 @@ export const throwError = (res, err, payload?, status = 500) => {
       errors: err.errors,
     });
   } else {
-    return res.status(payload.code || status).json(payload);
+    if (payload.code) {
+      status = payload.code;
+      delete payload.code;
+    }
+
+    return res.status(status).json(payload);
   }
 };
