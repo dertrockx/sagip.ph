@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
 import { ValidEntity } from '../../decorators';
 
-import { User } from '../';
+import { User, Comment } from '../';
 
 @Entity()
 export class Distress extends ValidEntity {
@@ -28,6 +28,9 @@ export class Distress extends ValidEntity {
 
   @ManyToOne(type => User, user => user.distress)
   user: Promise<User>;
+
+  @OneToMany(type => Comment, comment => comment.distress)
+  comments: Promise<Comment[]>
 }
 
 export default Distress;

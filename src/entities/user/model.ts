@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import { ValidEntity } from '../../decorators';
 
-import { Confirmation, Distress } from '../';
+import { Confirmation, Distress, Comment } from '../';
 
 @Entity()
 export class User extends ValidEntity {
@@ -32,6 +32,9 @@ export class User extends ValidEntity {
 
   @OneToMany(type => Distress, distress => distress.user)
   distress: Promise<Distress[]>
+
+  @OneToMany(type => Comment, comment => comment.user)
+  comments: Comment[];
 
   confirmCode(code: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
