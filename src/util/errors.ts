@@ -17,6 +17,6 @@ export const throwError = (res, err, payload?, status = 500) => {
       errors: err.errors,
     });
   } else {
-    return res.status(status).json(payload);
+    return res.status(payload.code || status).json(payload);
   }
 };

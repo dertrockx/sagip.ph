@@ -52,7 +52,7 @@ class User extends ValidEntity {
           return resolve();
         }
   
-        return reject({ error: 'Incorrect confirmation code' });
+        return reject({ error: 'Incorrect confirmation code', code: 400 });
       } catch(err) {
         return reject(err);
       }
