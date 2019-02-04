@@ -8,12 +8,18 @@ const theme = createMuiTheme({
     fontFamily: `
       'Product Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
       'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif
-    `,
+    `
   },
   palette: {
-    main: '#01579b'
-  },
-  secondary: blue
+    primary: {
+      main: '#001d25',
+    },
+    secondary: blue
+  }
 });
+
+export const themeVars = {
+  primary: '#001d25',
+};
 
 export default theme;

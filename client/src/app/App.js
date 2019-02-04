@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 
-import { Typography } from '@components/material-ui';
+import Login from 'features/login/Login';
 
 class App extends Component {
   render() {
     return (
-      <Typography component="h2" variant="h3" gutterBottom>
-        Google this is me.
-      </Typography>
+      <Login />
     );
   }
 }
