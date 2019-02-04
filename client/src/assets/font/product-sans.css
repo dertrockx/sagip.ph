@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100;
+  src:
+    local('ProductSans Thin '),
+    local('ProductSans-Thin'),
+    url('./woff2/ProductSans-Thin.woff2') format('woff2'),
+    url('./ttf/ProductSans-Thin.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 300;
+  src:
+    local('ProductSans Light '),
+    local('ProductSans-Light'),
+    url('./woff2/ProductSans-Light.woff2') format('woff2'),
+    url('./ttf/ProductSans-Light.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('ProductSans Regular '),
+    local('ProductSans-Regular'),
+    url('./woff2/ProductSans-Regular.woff2') format('woff2'),
+    url('./ttf/ProductSans-Regular.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src:
+    local('ProductSans Regular italic'),
+    local('ProductSans-Regularitalic'),
+    url('./woff2/ProductSans-Regular-Italic.woff2') format('woff2'),
+    url('./ttf/ProductSans-Regular-Italic.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src:
+    local('ProductSans Medium '),
+    local('ProductSans-Medium'),
+    url('./woff2/ProductSans-Medium.woff2') format('woff2'),
+    url('./ttf/ProductSans-Medium.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('ProductSans Bold '),
+    local('ProductSans-Bold'),
+    url('./woff2/ProductSans-Bold.woff2') format('woff2'),
+    url('./ttf/ProductSans-Bold.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src:
+    local('ProductSans Bold italic'),
+    local('ProductSans-Bolditalic'),
+    url('./woff2/ProductSans-Bold-Italic.woff2') format('woff2'),
+    url('./ttf/ProductSans-Bold-Italic.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Product Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 900;
+  src:
+    local('ProductSans Black '),
+    local('ProductSans-Black'),
+    url('./woff2/ProductSans-Black.woff2') format('woff2'),
+    url('./ttf/ProductSans-Black.ttf') format('ttf');
+}
