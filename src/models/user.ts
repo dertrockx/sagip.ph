@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany, getRepository } from 'typeorm';
 
 import { ValidEntity } from '@decorators';
 import { Confirmation, Distress, Comment } from '@models';
@@ -14,16 +14,16 @@ class User extends ValidEntity {
   @Column()
   phoneNumber: string;
 
-  @Column()
+  @Column({ select: false })
   accessToken: string;
 
-  @Column()
+  @Column({ select: false })
   friendToken: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', select: false })
   timestamp: Date;
 
-  @Column({ default: () => true })
+  @Column({ default: () => true, select: false })
   isActive: boolean;
 
   @OneToOne(type => Confirmation, confirmation => confirmation.user)
@@ -57,6 +57,15 @@ class User extends ValidEntity {
         return reject(err);
       }
     });
+  }
+
+  static getToken(userId: number) {
+    const token = this.createQueryBuilder('user')
+      .select(['accessToken', 'friendToken'])
+      .where('id = :userId', { userId })
+      .getRawOne();
+
+    return token;
   }
 }
 

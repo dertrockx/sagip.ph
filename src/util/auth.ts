@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 
 const JWT_SECRET = 'sagipph';
 
-export const generateToken = ({ maxAge = 3600, data }) => jwt.sign(
+export const generateToken = ({ maxAge = 3600 * 24, data }) => jwt.sign(
   { data },
   JWT_SECRET,
   {

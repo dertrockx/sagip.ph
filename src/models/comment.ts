@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinTable } from 'typeorm';
 
 import { ValidEntity } from '@decorators';
 import { User, Distress } from '@models';
@@ -14,11 +14,12 @@ class Comment extends ValidEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   timestamp: Date;
 
-  @Column({ default: () => true })
+  @Column({ default: () => true, select: false })
   isActive: boolean;
 
-  @ManyToOne(type => User, user => user.comments)
-  user: Promise<User>;
+  @ManyToOne(type => User, user => user.comments, { eager: true })
+  @JoinTable()
+  user: User;
 
   @ManyToOne(type => Distress, distress => distress.comments)
   distress: Promise<Distress>;
