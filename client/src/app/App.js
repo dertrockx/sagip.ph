@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Typography } from '../@components/material-ui';
+import { Typography } from '@components/material-ui';
 
 class App extends Component {
   render() {
