@@ -22,6 +22,8 @@ export class Sms {
           });
   
           return resolve(data);
+        } else {
+          console.log(content);
         }
 
         return resolve(null);
