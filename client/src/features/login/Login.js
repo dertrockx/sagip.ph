@@ -1,43 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-import { Container, Splash, LoginContainer, LoginButton } from './styles';
-import {
-  Card,
-  CardContent,
-  Typography,
-  TextField,
-  InputAdornment,
-  Button,
-} from '@components/material-ui';
+import LoginForm from './LoginForm';
+import { ConfirmCode } from '@components';
+import { Container, Splash } from './styles';
 
-const Login = props => {
-  return (
-    <Container>
-      <Splash />
-      <LoginContainer>
-        <Card elevation={4} style={{ width: '80%', maxWidth: 540, borderRadius: 8 }}>
-          <CardContent style={{ padding: 32 }}>
-            <Typography variant="h4" gutterBottom>Login</Typography>
-            <form>
-              <TextField
-                id="phoneNumber"
-                label="Phone Number"
-                margin="normal"
-                variant="outlined"
-                InputProps={{
-                  startAdornment: <InputAdornment position="start">+63</InputAdornment>,
-                }}
-                fullWidth
-              />
-              <LoginButton>
-                <Button size="large" variant="contained" color="primary">Login</Button>
-              </LoginButton>
-            </form>
-          </CardContent>
-        </Card>
-      </LoginContainer>
-    </Container>
-  );
+class Login extends Component {
+  state = {
+    confirmationModal: false,
+  };
+
+  toggleConfirmationModal = () => {
+    this.setState(prev => ({ confirmationModal: !prev.confirmationModal }));
+  }
+
+  render() {
+    return (
+      <Container>
+        <Splash />
+        <LoginForm />
+        <ConfirmCode
+          open={this.state.confirmationModal}
+          close={this.toggleConfirmationModal}
+        />
+      </Container>
+    );
+  }
 }
 
 export default Login;
