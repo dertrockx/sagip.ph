@@ -20,6 +20,8 @@ const theme = createMuiTheme({
 
 export const themeVars = {
   primary: '#001d25',
+
+  gray: '#333333',
 };
 
 export default theme;
