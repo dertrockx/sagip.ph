@@ -29,7 +29,9 @@ class App extends Component {
 
     return (
       // <Login />
-      <Dashboard />
+      <Dashboard>
+        Hello!
+      </Dashboard>
       // <Map location={location} />
       // <FullscreenLoader/>
     );

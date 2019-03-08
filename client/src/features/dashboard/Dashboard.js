@@ -5,7 +5,7 @@ import { Menu as MenuIcon } from '@components/icons';
 import { Root, Container, Menu, Profile, Sidebar, MapWrapper } from './styles';
 
 class Dashboard extends Component {
-  state = { drawerOpen: true };
+  state = { drawerOpen: false };
 
   toggleDrawer = () => {
     this.setState({
@@ -35,7 +35,7 @@ class Dashboard extends Component {
             </IconButton>
           </Profile>
           <MapWrapper>
-            Hello, it's me
+            {this.props.children}
           </MapWrapper>
         </Container>
       </Root>
