@@ -1,0 +1,8 @@
+{
+  "zoomControl": true,
+  "mapTypeControl": true,
+  "mapTypeControlOptions": {
+    "position": 11,
+    "mapTypeIds": ["roadmap", "satellite"]
+  }
+}

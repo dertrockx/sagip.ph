@@ -2,37 +2,38 @@ import React, { Component } from 'react';
 
 // import { FullscreenLoader } from '@components';
 // import Login from 'features/login/Login';
-// import Map from 'features/map/Map';
+import Map from 'features/map/Map';
 import Dashboard from 'features/dashboard/Dashboard';
 
 class App extends Component {
   state = {
     location: {
-      latitude: 0,
-      longitude: 0,
+      lat: 0,
+      lng: 0,
     },
+    radius: 1000,
   };
 
-  // componentDidMount() {
-  //   if (navigator.geolocation) {
-  //     navigator.geolocation.getCurrentPosition(({ coords }) => {
-  //       const { latitude, longitude } = coords;
-  //       this.setState({ location: { latitude, longitude }});
-  //     });
-  //   }
-  // }
+  componentDidMount() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        const { latitude: lat, longitude: lng } = coords;
+        this.setState({ location: { lat, lng }});
+      });
+    }
+  }
 
   render() {
     const {
-      location
+      location,
+      radius
     } = this.state;
 
     return (
       // <Login />
       <Dashboard>
-        Hello!
+        <Map location={location} radius={radius} />
       </Dashboard>
-      // <Map location={location} />
       // <FullscreenLoader/>
     );
   }
