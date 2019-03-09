@@ -4,7 +4,7 @@ import { Drawer } from '@components/material-ui';
 
 const spacing = {
   margin: 15,
-  sidebar: 250,
+  sidebar: 270,
 }
 
 export const Root = styled.div`

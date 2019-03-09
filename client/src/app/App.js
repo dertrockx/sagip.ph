@@ -32,7 +32,7 @@ class App extends Component {
     return (
       // <Login />
       <Dashboard>
-        <Map location={location} radius={radius} />
+        {/* <Map location={location} radius={radius} /> */}
       </Dashboard>
       // <FullscreenLoader/>
     );

@@ -17,6 +17,16 @@ export { default as DialogContent } from '@material-ui/core/DialogContent';
 export { default as DialogContentText } from '@material-ui/core/DialogContentText';
 export { default as DialogTitle } from '@material-ui/core/DialogTitle';
 
+export { default as List } from '@material-ui/core/List';
+export { default as ListItem } from '@material-ui/core/ListItem';
+export { default as ListItemIcon } from '@material-ui/core/ListItemIcon';
+export { default as ListItemSecondaryAction } from '@material-ui/core/ListItemSecondaryAction';
+export { default as ListItemText } from '@material-ui/core/ListItemText';
+export { default as ListSubheader } from '@material-ui/core/ListSubheader';
+
+export { default as Switch } from '@material-ui/core/Switch';
 export { default as Avatar } from '@material-ui/core/Avatar';
 
 export { default as Drawer } from '@material-ui/core/Drawer';
+export { default as Menu } from '@material-ui/core/Menu';
+export { default as MenuItem } from '@material-ui/core/MenuItem';
