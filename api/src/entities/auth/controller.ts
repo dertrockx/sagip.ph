@@ -61,16 +61,18 @@ export const confirmUser = async (req, res): Promise<express.Response> => {
 
       case types.LOGIN:
         const { id, name, phoneNumber } = user;
+        const session = { id, name, phoneNumber };
 
-        return res.json({
-          token: generateToken({ data: {
-            id,
-            name,
-            phoneNumber,
-          }})
-        });
+        req.session.user = session;
+        return res.json(session);
     }
   } catch (err) {
     return throwError(res, err);
   }
 };
+
+export const logout = (req, res): express.Response => {
+  req.session.user = null;
+
+  return res.sendStatus(200);
+}
