@@ -2,11 +2,17 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
 
+import { getRepository } from 'typeorm';
+import * as expressSession from 'express-session';
+import { TypeormStore } from 'connect-typeorm';
+import { Session } from '@models';
+
 import router from './router';
 
 class App {
   public app: express.Express;
   public port: number;
+  public sessionRepository = getRepository(Session);
 
   constructor() {
     this.app = express();
@@ -31,6 +37,15 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(logger('dev'));
+
+    this.app.use(expressSession({
+      resave: false,
+      saveUninitialized: false,
+      store: new TypeormStore({
+        ttl: 86400
+      }).connect(this.sessionRepository),
+      secret: 'sagipsagip'
+    }));
   }
 
   private _setPort = (): number => +process.env.PORT || 8081;

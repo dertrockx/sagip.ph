@@ -1,7 +1,7 @@
 import { createConnection } from 'typeorm';
 import * as Entities from '@models';
 
-const connection = app => createConnection({
+const connection = () => createConnection({
   type: 'mariadb',
   host: 'localhost',
   port: 3306,
@@ -14,12 +14,6 @@ const connection = app => createConnection({
   database: 'sagipph',
 
   entities: [ ...Object.values(Entities) ]
-}).then(() => {
-  console.log('> Successfully connected to database');
-
-  app();
-}).catch(({ code, sqlMessage }) => {
-  console.log(`Failure to connect to database: ${sqlMessage} [${code}]`);
 });
 
 export default connection;
