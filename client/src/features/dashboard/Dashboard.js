@@ -23,6 +23,7 @@ import {
   ChevronRight as ChevronRightIcon,
 } from '@components/icons';
 
+import { inject, observer } from 'mobx-react';
 import { Root, Container, Menu, Profile, Sidebar, MapWrapper } from './styles';
 
 class Dashboard extends Component {
@@ -41,6 +42,20 @@ class Dashboard extends Component {
     this.setState({
       menuAnchor: this.state.menuAnchor ? null : currentTarget,
     });
+  }
+
+  componentDidMount() {
+    const { dashboard, map } = this.props.store;
+    const { radius } = dashboard;
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(({ coords }) => {
+        const { latitude: lat, longitude: lng } = coords;
+
+        dashboard.updateLocation({ lat, lng });
+        map.fetchDistress({ lat, lng, radius });
+      });
+    }
   }
 
   render() {
@@ -94,4 +109,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default inject('store')(observer(Dashboard));
