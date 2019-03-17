@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { inject, observer } from 'mobx-react';
 import {
   GoogleMap,
   Marker,
@@ -17,7 +17,9 @@ const config = {
 
 const icon = 'http://mt.google.com/vt/icon?psize=27&font=fonts/Roboto-Bold.ttf&color=ff135C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=44&ay=50&text=%E2%80%A2';
 
-const Map = ({ location, radius, distress }) => {
+const Map = ({ location, radius, store }) => {
+  const { distress } = store.map;
+  
   return (
     <GoogleMap defaultZoom={15} defaultOptions={config} center={location}>
       <Marker position={location} />
@@ -40,4 +42,4 @@ const Map = ({ location, radius, distress }) => {
   );
 };
 
-export default Map;
+export default inject('store')(observer(Map));
