@@ -1,8 +1,7 @@
 import React from 'react';
+
 import {
   GoogleMap,
-  withGoogleMap,
-  withScriptjs,
   Marker,
   Circle
 } from 'react-google-maps';
@@ -16,10 +15,20 @@ const config = {
   ...controls
 };
 
-const Map = withScriptjs(
-  withGoogleMap(({ location, radius }) => (
+const icon = 'http://mt.google.com/vt/icon?psize=27&font=fonts/Roboto-Bold.ttf&color=ff135C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=44&ay=50&text=%E2%80%A2';
+
+const Map = ({ location, radius, distress }) => {
+  return (
     <GoogleMap defaultZoom={15} defaultOptions={config} center={location}>
       <Marker position={location} />
+      {distress.length && distress.map(marker => (
+        <Marker
+          key={marker.id}
+          position={{ lat: marker.latitude, lng: marker.longitude }}
+          icon={{ url: icon }}
+          zIndex={1}
+        />
+      ))}
       <Circle
         center={location}
         radius={radius}
@@ -28,19 +37,7 @@ const Map = withScriptjs(
         }}
       />
     </GoogleMap>
-  ))
-);
+  );
+};
 
-const MapWrapper = ({ location, radius }) => (
-  <Map
-    googleMapURL={`https://maps.googleapis.com/maps/api/js?key=AIzaSyC4i4QjxqmM1o9WEcwOgdeGpC3EzN6I9Sk&v=3.exp&libraries=geometry,drawing,places`}
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `100vh` }} />}
-    mapElement={<div style={{ height: `100%` }} />}
-
-    location={location}
-    radius={radius}
-  />
-);
-
-export default MapWrapper;
+export default Map;
