@@ -24,7 +24,7 @@ class Main extends StatelessWidget {
           Expanded(
             flex: 3,
             child: Padding(
-              padding: EdgeInsets.all(baseSpacing),
+              padding: EdgeInsets.symmetric(horizontal: baseSpacing, vertical: mediumSpacing),
               child: Action()
             )
           ),
