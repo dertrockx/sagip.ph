@@ -6,22 +6,26 @@ class PrimaryButton extends StatelessWidget {
     @required this.child,
     this.onPressed = null,
 
-    this.fluid = false,
+    this.expanded = false,
+    this.color = primaryColor,
+    this.textColor = whiteColor,
   });
 
   final Widget child;
   final VoidCallback onPressed;
+  final Color color;
+  final Color textColor;
 
-  final bool fluid;
+  final bool expanded;
 
   @override
   Widget build(BuildContext context) {
     Widget _button = FlatButton(
       onPressed: this.onPressed,
 
-      color: primaryColor,
+      color: this.color,
       disabledColor: disabledBgColor,
-      textColor: whiteColor,
+      textColor: this.textColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0)
       ),
@@ -33,7 +37,7 @@ class PrimaryButton extends StatelessWidget {
       child: this.child
     );
 
-    return (this.fluid
+    return (this.expanded
       ? SizedBox(width: double.infinity, child: _button)
       : _button
     );

@@ -16,7 +16,7 @@ class Action extends StatelessWidget {
           child: Conditions()
         ),
         PrimaryButton(
-          fluid: true,
+          expanded: true,
           onPressed: () {},
           child: Text('SEND DISTRESS', style: normalText)
         )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import './screens/main/main.dart';
+import './screens/splash/splash.dart';
 
 void main() {
   runApp(App());
@@ -12,7 +13,7 @@ class App extends StatelessWidget {
     final appName = 'sagip.ph';
 
     return MaterialApp(
-      home: new Main(),
+      home: new Splash(),
 
       title: appName,
     );

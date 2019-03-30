@@ -7,7 +7,7 @@ import './components/action.dart';
 class Main extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new Material(
+    return Material(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
