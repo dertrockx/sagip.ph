@@ -16,5 +16,8 @@ const xlargeSpacing = 48.0;
 const hugeSpacing = 64.0;
 
 // Typography
-const normalText = TextStyle(fontSize: 18.0);
 const tinyText = TextStyle(fontSize: 14.0);
+const normalText = TextStyle(fontSize: 18.0);
+const heroText = TextStyle(fontSize: 48.0, fontWeight: FontWeight.bold);
+
+const invertedText = TextStyle(color: whiteColor);
