@@ -10,6 +10,11 @@ class Splash extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
         FlutterLogo(size: 124.0),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: baseSpacing),
+          child: Text('sagip.ph', style: heroText),
+        ),
+        Text('Connecting people during disasters', style: mediumText),
       ]
     );
 
