@@ -4,14 +4,20 @@ import 'package:sagip/config/theme.dart';
 class PrimaryButton extends StatelessWidget {
   PrimaryButton({
     @required this.child,
+    this.onPressed = null,
+
+    this.fluid = false,
   });
 
   final Widget child;
+  final VoidCallback onPressed;
+
+  final bool fluid;
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
-      onPressed: null,
+    Widget _button = FlatButton(
+      onPressed: this.onPressed,
 
       color: primaryColor,
       disabledColor: disabledBgColor,
@@ -25,6 +31,11 @@ class PrimaryButton extends StatelessWidget {
       ),
 
       child: this.child
+    );
+
+    return (this.fluid
+      ? SizedBox(width: double.infinity, child: _button)
+      : _button
     );
   }
 }

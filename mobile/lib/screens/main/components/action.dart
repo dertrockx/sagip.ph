@@ -8,11 +8,10 @@ class Action extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget> [
-        SizedBox(
-          width: double.infinity,
-          child: PrimaryButton(
-            child: Text('SEND DISTRESS', style: normalText)
-          )
+        PrimaryButton(
+          fluid: true,
+          onPressed: () {},
+          child: Text('SEND DISTRESS', style: normalText)
         )
       ],
     );
