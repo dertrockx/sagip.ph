@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sagip/config/theme.dart';
 
 import './components/location.dart';
+import './components/action.dart';
 
 class Main extends StatelessWidget {
   @override
@@ -12,16 +14,19 @@ class Main extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Container(
-              color: Theme.of(context).primaryColor,
+              color: primaryColor,
               child: SafeArea(
                 child: Location()
               ),
-              padding: const EdgeInsets.symmetric(vertical: 24.0)
+              padding: EdgeInsets.symmetric(vertical: baseSpacing)
             )
           ),
           Expanded(
             flex: 3,
-            child: Text('Hello din!')
+            child: Padding(
+              padding: EdgeInsets.all(baseSpacing),
+              child: Action()
+            )
           ),
         ]
       )

@@ -15,9 +15,6 @@ class App extends StatelessWidget {
       home: new Main(),
 
       title: appName,
-      theme: ThemeData(
-        primaryColor: const Color(0xff001d25),
-      )
     );
   }
 }
