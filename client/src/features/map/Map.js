@@ -5,6 +5,7 @@ import {
   Marker,
   Circle
 } from 'react-google-maps';
+import { MarkerWithLabel } from 'react-google-maps/lib/components/addons/MarkerWithLabel';
 
 import mapStyles from './mapStyles';
 import controls from './controls';
@@ -24,12 +25,16 @@ const Map = ({ location, radius, store }) => {
     <GoogleMap defaultZoom={15} defaultOptions={config} center={location}>
       <Marker position={location} />
       {distress.length && distress.map(marker => (
-        <Marker
+        <MarkerWithLabel
           key={marker.id}
           position={{ lat: marker.latitude, lng: marker.longitude }}
           icon={{ url: icon }}
+          labelAnchor={new window.google.maps.Point(0, 0)}
+          labelStyle={{backgroundColor: "yellow", fontSize: "32px", padding: "16px"}}
           zIndex={1}
-        />
+        >
+          <div>{marker.latitude} {marker.longitude}</div>
+        </MarkerWithLabel>
       ))}
       <Circle
         center={location}
