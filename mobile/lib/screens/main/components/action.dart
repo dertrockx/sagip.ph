@@ -6,6 +6,12 @@ import 'package:sagip/components/buttons/primary.dart';
 import './conditions.dart';
 
 class ActionSection extends StatelessWidget {
+  ActionSection({
+    this.hasLocation = false,
+  });
+
+  bool hasLocation;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,7 +23,9 @@ class ActionSection extends StatelessWidget {
         ),
         PrimaryButton(
           expanded: true,
-          onPressed: () { },
+          onPressed: this.hasLocation
+            ? () { }
+            : null,
           child: Text('SEND DISTRESS', style: normalText)
         )
       ],

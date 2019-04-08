@@ -58,7 +58,9 @@ class _MainState extends State<Main> {
             flex: 3,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: baseSpacing, vertical: mediumSpacing),
-              child: ActionSection()
+              child: ActionSection(
+                hasLocation: this._location != null && !this._isGettingLocation,
+              )
             )
           ),
         ]
