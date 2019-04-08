@@ -31,7 +31,7 @@ class PrimaryButton extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(
         vertical: baseSpacing,
-        horizontal: mediumSpacing
+        horizontal: xlargeSpacing
       ),
 
       child: this.child

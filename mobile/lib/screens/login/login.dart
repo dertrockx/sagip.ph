@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sagip/config/theme.dart';
 
+import 'package:sagip/components/buttons/primary.dart';
+
 class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,14 @@ class Login extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: mediumSpacing),
                 child: Text('Login with your mobile', style: mediumText.merge(invertedText))
               ),
-              _input
+              _input,
+              PrimaryButton(
+                // expanded: true,
+                color: whiteColor,
+                textColor: primaryColor,
+                onPressed: () => Navigator.pushNamed(context, '/dashboard'),
+                child: Text('Login', style: mediumText),
+              ),
             ]
           )
         )

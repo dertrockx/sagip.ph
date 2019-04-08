@@ -31,7 +31,7 @@ class Splash extends StatelessWidget {
         Padding(
           padding: EdgeInsets.only(top: smallSpacing),
           child: FlatButton(
-            onPressed: () {},
+            onPressed: () { Navigator.pushNamed(context, '/login'); },
             child: Text('Login', style: normalText.merge(primaryText))
           )
         ),

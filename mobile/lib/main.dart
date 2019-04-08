@@ -14,7 +14,12 @@ class App extends StatelessWidget {
     final appName = 'sagip.ph';
 
     return MaterialApp(
-      home: new Splash(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Splash(),
+        '/login': (context) => Login(),
+        '/dashboard': (context) => Main(),
+      },
 
       title: appName,
     );
