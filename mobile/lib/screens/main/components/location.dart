@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sagip/config/theme.dart';
 
-class Location extends StatelessWidget {
+class LocationSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget _longitude = Padding(

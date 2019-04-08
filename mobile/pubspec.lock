@@ -42,7 +42,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_custom_tabs:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: flutter_custom_tabs
       url: "https://pub.dartlang.org"
@@ -53,6 +53,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  location:
+    dependency: "direct main"
+    description:
+      name: location
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.3.4"
   matcher:
     dependency: transitive
     description:

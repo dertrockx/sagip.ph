@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sagip/config/theme.dart';
 
-class Conditions extends StatelessWidget {
+class ConditionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _disasters = <String> ['Extreme Flooding', 'Earthquake', 'Fire'];

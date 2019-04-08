@@ -16,7 +16,7 @@ class Main extends StatelessWidget {
             child: Container(
               color: primaryColor,
               child: SafeArea(
-                child: Location()
+                child: LocationSection()
               ),
               padding: EdgeInsets.symmetric(vertical: baseSpacing)
             )
@@ -25,7 +25,7 @@ class Main extends StatelessWidget {
             flex: 3,
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: baseSpacing, vertical: mediumSpacing),
-              child: Action()
+              child: ActionSection()
             )
           ),
         ]

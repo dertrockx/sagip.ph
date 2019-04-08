@@ -5,7 +5,7 @@ import 'package:sagip/components/buttons/primary.dart';
 
 import './conditions.dart';
 
-class Action extends StatelessWidget {
+class ActionSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -13,7 +13,7 @@ class Action extends StatelessWidget {
       children: <Widget> [
         Padding(
           padding: EdgeInsets.only(bottom: mediumSpacing),
-          child: Conditions()
+          child: ConditionsSection()
         ),
         PrimaryButton(
           expanded: true,
