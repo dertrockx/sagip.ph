@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sagip/config/theme.dart';
+import 'package:sagip/config/constants.dart';
+import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 
 import 'package:sagip/components/buttons/primary.dart';
 
@@ -23,7 +25,7 @@ class Splash extends StatelessWidget {
       children: <Widget> [
         PrimaryButton(
           expanded: true,
-          onPressed: () {},
+          onPressed: () => _openRegistration(context),
           child: Text('Get Started', style: mediumText)
         ),
         Padding(
@@ -56,5 +58,22 @@ class Splash extends StatelessWidget {
         ]
       )
     );
+  }
+
+  void _openRegistration(BuildContext context) async {
+    try {
+      await launch(
+        'https://developer.globelabs.com.ph/dialog/oauth/' + APP_ID,
+        option: new CustomTabsOption(
+          toolbarColor: primaryColor,
+          enableDefaultShare: true,
+          enableUrlBarHiding: true,
+          showPageTitle: true,
+          animation: new CustomTabsAnimation.slideIn(),
+        ),
+      );
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }
