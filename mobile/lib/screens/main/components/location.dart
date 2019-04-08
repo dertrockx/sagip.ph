@@ -22,7 +22,7 @@ class LocationSection extends StatelessWidget {
       child: Column(
         children: <Widget> [
           Text(
-            this.location.latitude.toString(),
+            this.location?.latitude.toString() ?? "",
             style: heroText.merge(invertedText)
           ),
           Text('LATITUDE', style: normalText.merge(invertedText)),
@@ -35,7 +35,7 @@ class LocationSection extends StatelessWidget {
       child: Column(
         children: <Widget> [
           Text(
-            this.location.longitude.toString(),
+            this.location?.longitude.toString() ?? "",
             style: heroText.merge(invertedText)
           ),
           Text('LONGITUDE', style: normalText.merge(invertedText)),
