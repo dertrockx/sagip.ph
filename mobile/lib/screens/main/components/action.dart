@@ -17,7 +17,7 @@ class ActionSection extends StatelessWidget {
         ),
         PrimaryButton(
           expanded: true,
-          onPressed: () {},
+          onPressed: () { },
           child: Text('SEND DISTRESS', style: normalText)
         )
       ],

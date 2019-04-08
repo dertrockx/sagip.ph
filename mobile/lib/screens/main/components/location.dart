@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:location/location.dart';
 import 'package:sagip/config/theme.dart';
 
 class LocationSection extends StatelessWidget {
   LocationSection({
+    @required this.getCurrentLocation,
+
     @required this.isGettingLocation,
+    @required this.location,
   });
 
   bool isGettingLocation;
+  LocationData location;
+
+  VoidCallback getCurrentLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +22,7 @@ class LocationSection extends StatelessWidget {
       child: Column(
         children: <Widget> [
           Text(
-            '12.24123',
+            this.location.latitude.toString(),
             style: heroText.merge(invertedText)
           ),
           Text('LATITUDE', style: normalText.merge(invertedText)),
@@ -28,7 +35,7 @@ class LocationSection extends StatelessWidget {
       child: Column(
         children: <Widget> [
           Text(
-            '121.24123',
+            this.location.longitude.toString(),
             style: heroText.merge(invertedText)
           ),
           Text('LONGITUDE', style: normalText.merge(invertedText)),
@@ -53,7 +60,7 @@ class LocationSection extends StatelessWidget {
             )
           ),
         FlatButton(
-          onPressed: () {},
+          onPressed: () { this.getCurrentLocation(); },
           child: Text('Reset Location', style: tinyText.merge(invertedText))
         ),
       ]
