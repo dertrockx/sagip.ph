@@ -5,6 +5,8 @@ import './components/location.dart';
 import './components/action.dart';
 
 class Main extends StatelessWidget {
+  bool _isGettingLocation = true;
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -16,7 +18,9 @@ class Main extends StatelessWidget {
             child: Container(
               color: primaryColor,
               child: SafeArea(
-                child: LocationSection()
+                child: LocationSection(
+                  isGettingLocation: this._isGettingLocation,
+                )
               ),
               padding: EdgeInsets.symmetric(vertical: baseSpacing)
             )

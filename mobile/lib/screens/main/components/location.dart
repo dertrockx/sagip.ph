@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:sagip/config/theme.dart';
 
 class LocationSection extends StatelessWidget {
+  LocationSection({
+    @required this.isGettingLocation,
+  });
+
+  bool isGettingLocation;
+
   @override
   Widget build(BuildContext context) {
     Widget _longitude = Padding(
@@ -33,15 +39,19 @@ class LocationSection extends StatelessWidget {
     return Column(
       children: <Widget> [
         Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget> [
-              _latitude,
-              _longitude,
-            ]
-          )
-        ),
+          child: this.isGettingLocation
+          ? Center(child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(whiteColor),
+          ))
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget> [
+                _latitude,
+                _longitude,
+              ]
+            )
+          ),
         FlatButton(
           onPressed: () {},
           child: Text('Reset Location', style: tinyText.merge(invertedText))
