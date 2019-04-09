@@ -28,7 +28,6 @@ class Login extends StatelessWidget {
               ),
               _input,
               PrimaryButton(
-                // expanded: true,
                 color: whiteColor,
                 textColor: primaryColor,
                 onPressed: () => Navigator.pushNamed(context, '/dashboard'),
