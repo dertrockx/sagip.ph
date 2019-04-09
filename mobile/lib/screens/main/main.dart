@@ -119,7 +119,6 @@ class _MainState extends State<Main> {
                 nature: this._nature,
 
                 changeDistressNature: this.changeDistressNature,
-                reportDistress: this.reportDistress,
                 confirmSend: this.confirmSend,
               )
             )

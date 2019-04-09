@@ -11,14 +11,12 @@ class ActionSection extends StatelessWidget {
     this.nature,
 
     this.changeDistressNature,
-    this.reportDistress,
     this.confirmSend
   });
 
   bool isDisabled;
   String nature;
   void Function(String) changeDistressNature;
-  VoidCallback reportDistress;
   Future<void> Function() confirmSend;
 
   @override
