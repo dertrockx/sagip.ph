@@ -8,9 +8,14 @@ import './conditions.dart';
 class ActionSection extends StatelessWidget {
   ActionSection({
     this.hasLocation = false,
+    this.nature,
+
+    this.changeDistressNature,
   });
 
   bool hasLocation;
+  String nature;
+  void Function(String) changeDistressNature;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +24,10 @@ class ActionSection extends StatelessWidget {
       children: <Widget> [
         Padding(
           padding: EdgeInsets.only(bottom: mediumSpacing),
-          child: ConditionsSection()
+          child: ConditionsSection(
+            nature: this.nature,
+            changeDistressNature: this.changeDistressNature,
+          )
         ),
         PrimaryButton(
           expanded: true,

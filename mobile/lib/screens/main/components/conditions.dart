@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sagip/config/theme.dart';
+import 'package:sagip/config/constants.dart';
 
 class ConditionsSection extends StatelessWidget {
+  ConditionsSection({
+    this.nature,
+    this.changeDistressNature,
+  });
+
+  String nature;
+  void Function(String) changeDistressNature;
+
   @override
   Widget build(BuildContext context) {
-    final _disasters = <String> ['Extreme Flooding', 'Earthquake', 'Fire'];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget> [
@@ -13,9 +20,10 @@ class ConditionsSection extends StatelessWidget {
         DropdownButton<String>(
           isExpanded: true,
           style: mediumText,
-          onChanged: (String d) {},
+          onChanged: this.changeDistressNature,
+          value: this.nature,
           hint: Text('Select Condition'),
-          items: _disasters.map<DropdownMenuItem<String>>((String d) {
+          items: DISASTER_LIST.map<DropdownMenuItem<String>>((String d) {
             return DropdownMenuItem<String>(
               value: d,
               child: Padding(

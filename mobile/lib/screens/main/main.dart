@@ -7,7 +7,9 @@ import './components/action.dart';
 
 class _MainState extends State<Main> {
   bool _isGettingLocation = true;
+
   LocationData _location;
+  String _nature;
 
   void getCurrentLocation() async {
     var loc = Location();
@@ -26,6 +28,12 @@ class _MainState extends State<Main> {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  void changeDistressNature(String value) {
+    setState(() {
+      _nature = value;
+    });
   }
 
   @override
@@ -47,8 +55,9 @@ class _MainState extends State<Main> {
               child: SafeArea(
                 child: LocationSection(
                   isGettingLocation: this._isGettingLocation,
-                  getCurrentLocation: this.getCurrentLocation,
                   location: this._location,
+
+                  getCurrentLocation: this.getCurrentLocation,
                 )
               ),
               padding: EdgeInsets.symmetric(vertical: baseSpacing)
@@ -60,6 +69,9 @@ class _MainState extends State<Main> {
               padding: EdgeInsets.symmetric(horizontal: baseSpacing, vertical: mediumSpacing),
               child: ActionSection(
                 hasLocation: this._location != null && !this._isGettingLocation,
+                nature: this._nature,
+
+                changeDistressNature: this.changeDistressNature,
               )
             )
           ),

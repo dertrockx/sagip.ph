@@ -3,6 +3,7 @@ package io.flutter.plugins;
 import io.flutter.plugin.common.PluginRegistry;
 import com.github.droibit.flutter.plugins.customtabs.CustomTabsPlugin;
 import com.lyokone.location.LocationPlugin;
+import com.babariviere.sms.SmsPlugin;
 import io.flutter.plugins.urllauncher.UrlLauncherPlugin;
 
 /**
@@ -15,6 +16,7 @@ public final class GeneratedPluginRegistrant {
     }
     CustomTabsPlugin.registerWith(registry.registrarFor("com.github.droibit.flutter.plugins.customtabs.CustomTabsPlugin"));
     LocationPlugin.registerWith(registry.registrarFor("com.lyokone.location.LocationPlugin"));
+    SmsPlugin.registerWith(registry.registrarFor("com.babariviere.sms.SmsPlugin"));
     UrlLauncherPlugin.registerWith(registry.registrarFor("io.flutter.plugins.urllauncher.UrlLauncherPlugin"));
   }
 
