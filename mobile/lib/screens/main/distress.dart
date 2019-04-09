@@ -1,11 +1,19 @@
+import 'dart:convert';
+
 class Distress {
   final String intent;
-  final DistressData data;
   final String nature;
   final double long;
   final double lat;
   final String description;
   
+  Distress({
+    this.intent,
+    this.nature,
+    this.long,
+    this.lat,
+    this.description = '',
+  });
 
   Map<String, dynamic> _toJson() => {
     'intent': intent,
@@ -18,10 +26,10 @@ class Distress {
   };
 
   String encode() {
-    Map<String, dynamic> json = this._toJson();
+    Map<String, dynamic> obj = this._toJson();
 
     // @TODO: Encrypt string
 
-    return jsonEncode(json);
+    return json.encode(obj);
   }
 }

@@ -7,15 +7,17 @@ import './conditions.dart';
 
 class ActionSection extends StatelessWidget {
   ActionSection({
-    this.hasLocation = false,
+    this.isDisabled = true,
     this.nature,
 
     this.changeDistressNature,
+    this.reportDistress,
   });
 
-  bool hasLocation;
+  bool isDisabled;
   String nature;
   void Function(String) changeDistressNature;
+  VoidCallback reportDistress;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +33,8 @@ class ActionSection extends StatelessWidget {
         ),
         PrimaryButton(
           expanded: true,
-          onPressed: this.hasLocation
-            ? () { }
+          onPressed: !this.isDisabled
+            ? this.reportDistress
             : null,
           child: Text('SEND DISTRESS', style: normalText)
         )

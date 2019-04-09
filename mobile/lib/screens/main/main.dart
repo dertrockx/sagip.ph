@@ -4,6 +4,7 @@ import 'package:sagip/config/theme.dart';
 
 import './components/location.dart';
 import './components/action.dart';
+import './distress.dart';
 
 class _MainState extends State<Main> {
   bool _isGettingLocation = true;
@@ -34,6 +35,17 @@ class _MainState extends State<Main> {
     setState(() {
       _nature = value;
     });
+  }
+
+  void reportDistress() {
+    final Distress report = Distress(
+      intent: 'DISTRESS',
+      nature: this._nature,
+      long: this._location.longitude,
+      lat: this._location.latitude,
+    );
+
+    debugPrint(report.encode());
   }
 
   @override
@@ -68,10 +80,11 @@ class _MainState extends State<Main> {
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: baseSpacing, vertical: mediumSpacing),
               child: ActionSection(
-                hasLocation: this._location != null && !this._isGettingLocation,
+                isDisabled: this._location == null || this._isGettingLocation || this._nature == null,
                 nature: this._nature,
 
                 changeDistressNature: this.changeDistressNature,
+                reportDistress: this.reportDistress,
               )
             )
           ),
