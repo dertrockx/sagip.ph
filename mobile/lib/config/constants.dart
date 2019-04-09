@@ -5,3 +5,5 @@ final DISASTER_LIST = <String> [
   'Earthquake',
   'Fire'
 ];
+
+final String APP_SHORT_CODE = '21587419';

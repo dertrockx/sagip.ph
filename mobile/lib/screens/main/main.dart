@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
+import 'package:sms/sms.dart';
 import 'package:sagip/config/theme.dart';
+import 'package:sagip/config/constants.dart';
 
 import './components/location.dart';
 import './components/action.dart';
@@ -81,6 +83,26 @@ class _MainState extends State<Main> {
     );
 
     debugPrint(report.encode());
+
+    SmsSender sender = SmsSender();
+    SmsMessage message = SmsMessage(APP_SHORT_CODE, report.encode());
+
+    message.onStateChanged.listen((state) {
+      switch (state) {
+        case SmsMessageState.Sending:
+          debugPrint('Sending...');
+          break;
+
+        case SmsMessageState.Sent:
+          debugPrint('Message sent!');
+          break;
+
+        default:
+          debugPrint('An error occured');
+      }
+    });
+
+    sender.sendSms(message);
   }
 
   @override
