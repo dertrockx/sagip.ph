@@ -30,7 +30,12 @@ class Login extends StatelessWidget {
               PrimaryButton(
                 color: whiteColor,
                 textColor: primaryColor,
-                onPressed: () => Navigator.pushNamed(context, '/dashboard'),
+                onPressed: () => (
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/dashboard',
+                    (Route<dynamic> route) => false
+                  )
+                ),
                 child: Text('Login', style: mediumText),
               ),
             ]
