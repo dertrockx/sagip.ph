@@ -37,6 +37,41 @@ class _MainState extends State<Main> {
     });
   }
 
+  Future<void> confirmSend() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirm distress'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Please confirm that you\'re sending this distress notification.'),
+              ]
+            )
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () { Navigator.of(context).pop(); }
+            ),
+            FlatButton(
+              child: Text('Confirm'),
+              onPressed: () {
+                this.reportDistress();
+                Navigator.of(context).pop();
+                setState(() {
+                  this._nature = null;
+                });
+              }
+            ),
+          ]
+        );
+      }
+    );
+  }
+
   void reportDistress() {
     final Distress report = Distress(
       intent: 'DISTRESS',
@@ -85,6 +120,7 @@ class _MainState extends State<Main> {
 
                 changeDistressNature: this.changeDistressNature,
                 reportDistress: this.reportDistress,
+                confirmSend: this.confirmSend,
               )
             )
           ),

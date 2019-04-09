@@ -12,12 +12,14 @@ class ActionSection extends StatelessWidget {
 
     this.changeDistressNature,
     this.reportDistress,
+    this.confirmSend
   });
 
   bool isDisabled;
   String nature;
   void Function(String) changeDistressNature;
   VoidCallback reportDistress;
+  Future<void> Function() confirmSend;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class ActionSection extends StatelessWidget {
         PrimaryButton(
           expanded: true,
           onPressed: !this.isDisabled
-            ? this.reportDistress
+            ? () { this.confirmSend(); }
             : null,
           child: Text('SEND DISTRESS', style: normalText)
         )
