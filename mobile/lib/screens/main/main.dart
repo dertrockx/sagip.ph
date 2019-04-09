@@ -94,7 +94,6 @@ class _MainState extends State<Main> {
     message.onStateChanged.listen((state) {
       switch (state) {
         case SmsMessageState.Sending:
-          debugPrint('Sending...');
           setState(() {
             this._isSendingDistress = true;
             this._sendingDistressHasFailed = false;
@@ -105,7 +104,6 @@ class _MainState extends State<Main> {
           break;
 
         case SmsMessageState.Sent:
-          debugPrint('Message sent!');
           setState(() {
             this._nature = null;
             this._isSendingDistress = false;
@@ -114,12 +112,11 @@ class _MainState extends State<Main> {
           break;
 
         default:
-          debugPrint('An error occured');
           setState(() {
             this._isSendingDistress = false;
             this._sendingDistressHasFailed = true;
           });
-          
+
           Navigator.of(context).pop();
           this.confirmSend();
       }
