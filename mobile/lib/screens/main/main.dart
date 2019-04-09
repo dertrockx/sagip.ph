@@ -10,6 +10,8 @@ import './distress.dart';
 
 class _MainState extends State<Main> {
   bool _isGettingLocation = true;
+  bool _isSendingDistress = false;
+  bool _sendingDistressHasFailed = false;
 
   LocationData _location;
   String _nature;
@@ -47,26 +49,28 @@ class _MainState extends State<Main> {
         return AlertDialog(
           title: Text('Confirm distress'),
           content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Please confirm that you\'re sending this distress notification.'),
-              ]
-            )
+            child: this._isSendingDistress
+              ? Center(child: CircularProgressIndicator())
+              : Text(this._sendingDistressHasFailed
+                ? 'Sending distress failed. Retry?'
+                : 'Please confirm that you\'re sending this distress notification.'
+              )
           ),
           actions: <Widget>[
             FlatButton(
               child: Text('Close'),
-              onPressed: () { Navigator.of(context).pop(); }
+              onPressed: this._isSendingDistress
+                ? null
+                : () { Navigator.of(context).pop(); }
             ),
             FlatButton(
-              child: Text('Confirm'),
-              onPressed: () {
-                this.reportDistress();
-                Navigator.of(context).pop();
-                setState(() {
-                  this._nature = null;
-                });
-              }
+              child: Text(this._sendingDistressHasFailed
+                ? 'Retry'
+                : 'Confirm'
+              ),
+              onPressed: this._isSendingDistress
+                ? null
+                : () { this.reportDistress(); }
             ),
           ]
         );
@@ -91,14 +95,33 @@ class _MainState extends State<Main> {
       switch (state) {
         case SmsMessageState.Sending:
           debugPrint('Sending...');
+          setState(() {
+            this._isSendingDistress = true;
+            this._sendingDistressHasFailed = false;
+          });
+
+          Navigator.of(context).pop();
+          this.confirmSend();
           break;
 
         case SmsMessageState.Sent:
           debugPrint('Message sent!');
+          setState(() {
+            this._nature = null;
+            this._isSendingDistress = false;
+          });
+          Navigator.of(context).pop();
           break;
 
         default:
           debugPrint('An error occured');
+          setState(() {
+            this._isSendingDistress = false;
+            this._sendingDistressHasFailed = true;
+          });
+          
+          Navigator.of(context).pop();
+          this.confirmSend();
       }
     });
 
