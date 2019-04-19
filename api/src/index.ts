@@ -1,7 +1,10 @@
 import 'reflect-metadata';
+import * as dotenv from 'dotenv';
 
 import connection from './config/dbconfig';
 import App from './app';
+
+dotenv.config();
 
 connection()
   .then(() => {

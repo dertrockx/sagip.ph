@@ -5,7 +5,9 @@ export class Sms {
   private url: string;
 
   constructor() {
-    this.senderAddress = '5186';
+    const { SHORT_CODE } = process.env;
+
+    this.senderAddress = SHORT_CODE.slice(SHORT_CODE.length - 4);
     this.url = `https://devapi.globelabs.com.ph/smsmessaging/v1/outbound/${this.senderAddress}/requests?access_token=`;
   }
 

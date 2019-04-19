@@ -52,6 +52,7 @@ class App {
 
   private _setRoutes = (): void => {
     this.app.use('/v1/', router);
+    this.app.use(express.static(__dirname + '/../public'));
   }
 }
 

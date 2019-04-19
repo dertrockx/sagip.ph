@@ -8,7 +8,7 @@ class User extends ValidEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   name: string;
 
   @Column()
@@ -17,7 +17,7 @@ class User extends ValidEntity {
   @Column({ select: false })
   accessToken: string;
 
-  @Column({ select: false })
+  @Column({ select: false, nullable: true })
   friendToken: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', select: false })
