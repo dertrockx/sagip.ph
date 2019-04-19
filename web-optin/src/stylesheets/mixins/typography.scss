@@ -1,0 +1,5 @@
+/* Conversion from font sie to rem */
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: ($size / 16px) * 1rem;
+}

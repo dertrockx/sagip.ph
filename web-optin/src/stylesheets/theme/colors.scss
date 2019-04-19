@@ -1,0 +1,16 @@
+/* Neutral Colors */
+$black-color: #212121;
+$white-color: #FFFFFF;
+$gray-color: #4F4F4F;
+
+/* Theme Colors */
+$primary-color: #001D25;
+$accent-color: #FECE0C;
+$emphasis-color: lighten($black-color, 80%);
+$emphasis-d-color: lighten($black-color, 70%);
+
+/* Text */
+$text-color: $black-color;
+$text-color-light: $white-color;
+$link-color: $primary-color;
+$link-color-light: $accent-color;

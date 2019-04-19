@@ -1,0 +1,26 @@
+/* Breakpoint Sizes */
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop-small: 960px;
+$breakpoint-desktop-large: 1152px;
+$breakpoint-desktop-xlarge: 1600px;
+
+$screens: (
+  mobile: $breakpoint-mobile,
+  tablet: $breakpoint-tablet,
+  desktop: $breakpoint-desktop-small,
+  desktop-large: $breakpoint-desktop-large,
+  desktop-xlarge: $breakpoint-desktop-xlarge
+);
+
+@mixin breakpoint($screen) {
+  @if map-has-key($map: $screens, $key: $screen) {
+    @media (min-width: #{map-get($screens, $screen)}) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $screen) {
+      @content;
+    }
+  }
+}

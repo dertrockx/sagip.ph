@@ -1,0 +1,52 @@
+.heading {
+  font-family: $font-stack, $font-stack-fallback;
+  color: $primary-color;
+  display: block;
+
+  &-hero {
+    @include font-size(40px);
+
+    @include breakpoint(tablet) {
+      @include font-size(48px);
+    }
+
+    @include breakpoint(desktop) {
+      @include font-size(56px);
+    }
+  }
+
+  &-1 {
+    @include font-size(24px);
+
+    @include breakpoint(tablet) {
+      @include font-size(26px);
+    }
+
+    @include breakpoint(desktop) {
+      @include font-size(32px);
+    }
+  }
+
+  &-2 {
+    @include font-size(24px);
+
+    @include breakpoint(tablet) {
+      @include font-size(22px);
+    }
+
+    @include breakpoint(desktop) {
+      @include font-size(26px);
+    }
+  }
+
+  &-3 {
+    @include font-size(18px);
+  }
+
+  &-4 {
+    @include font-size(14px);
+
+    text-transform: uppercase;
+    color: lighten($primary-color, 15%);
+  }
+}
