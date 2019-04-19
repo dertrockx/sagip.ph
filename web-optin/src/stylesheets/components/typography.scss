@@ -49,4 +49,16 @@
     text-transform: uppercase;
     color: lighten($primary-color, 15%);
   }
+
+  &-gutter {
+    &-bottom {
+      margin-bottom: $spacing-tiny;
+    }
+  }
+}
+
+.typography {
+  &-sub {
+    color: $emphasis-xd-color;
+  }
 }

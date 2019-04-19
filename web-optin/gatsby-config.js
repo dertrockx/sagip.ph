@@ -5,6 +5,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-root-import',
     options: {
+      '@common': path.join(__dirname, 'src/@common'),
       stylesheets: path.join(__dirname, 'src/stylesheets'),
       assets: path.join(__dirname, 'src/assets'),
     },
