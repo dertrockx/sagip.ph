@@ -18,5 +18,6 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "prod": "gatsby build && rm ../api/public -rf && mv public ../api"
-  }
+  },
+  "proxy": "http://localhost:8081/"
 }
