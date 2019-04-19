@@ -16,6 +16,7 @@
   "scripts": {
     "start": "gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve"
+    "serve": "gatsby serve",
+    "prod": "gatsby build && rm ../api/public -rf && mv public ../api"
   }
 }
