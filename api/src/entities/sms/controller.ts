@@ -8,6 +8,7 @@ import { types } from '@models/code';
 
 import parseSMS from './parser';
 
+// @DEPRECATE: Code for SMS opt-in
 export const registerUser = async (req, res): Promise<express.Response> => {
   const { access_token, subscriber_number } = req.query;
 
@@ -54,16 +55,16 @@ export const optInUser = async (req, res): Promise<express.Response> => {
     const { access_token, subscriber_number } = data;
 
     let user = await User.findOne({ phoneNumber: `0${subscriber_number}` });
-    if (user) {
+    if (user && user.name) {
       // User exists
       return res.redirect('/success');
     }
 
     // Update User
-    user = new User();
+    if (!user) user = new User();
     Object.assign(user, {
       accessToken: access_token,
-      phoneNumber: `0${subscriber_number}`
+      phoneNumber: `0${subscriber_number}`,
     });
     await user.save();
 

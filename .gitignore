@@ -58,3 +58,4 @@ buck-out/
 .env
 .cache
 web-optin/public
+api/public

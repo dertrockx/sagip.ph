@@ -1,4 +1,5 @@
 import * as express from 'express';
+import axios from 'axios';
 
 import { User, Confirmation } from '@models';
 import { types } from '@models/code';
@@ -68,6 +69,29 @@ export const confirmUser = async (req, res): Promise<express.Response> => {
     }
   } catch (err) {
     return throwError(res, err);
+  }
+};
+
+export const register = async (req, res): Promise<express.Response> => {
+  const { code, name, birthdate, profession, affiliation } = req.body;
+  const { APP_ID, APP_SECRET } = process.env;
+
+  if (!code) return res.status(404).redirect('/error');
+
+  try {
+    const { data } = await axios.post(`https://developer.globelabs.com.ph/oauth/access_token?app_id=${APP_ID}&app_secret=${APP_SECRET}&code=${code}`);
+    const { subscriber_number } = data;
+
+    const user = await User.findOne({ phoneNumber: `0${subscriber_number}` });
+    if (!user) return res.status(404).redirect('/error');
+
+    Object.assign(user, { name }); // @TODO: Assign other fields
+    await user.save()
+
+    return res.redirect('/success');
+  } catch (err) {
+    console.log(err);
+    return res.status(500).redirect('/error');
   }
 };
 
