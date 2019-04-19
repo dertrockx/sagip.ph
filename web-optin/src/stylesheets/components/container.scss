@@ -1,9 +1,18 @@
 .container {
   width: 90%;
   max-width: $breakpoint-tablet;
+  min-height: 100vh;
   margin: auto;
 
   &-padded {
-    margin: $spacing-large auto;
+    padding: $spacing-large 0;
+  }
+
+  &-emphasis {
+    background-color: $primary-color;
+
+    * {
+      color: white;
+    }
   }
 }

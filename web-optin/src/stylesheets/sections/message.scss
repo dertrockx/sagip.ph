@@ -1,0 +1,32 @@
+.icon {
+  margin-bottom: $spacing-base;
+  display: block;
+  height: 112px;
+  width: 112px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+
+  &-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &-action {
+    text-align: center;
+
+    .exit {
+      background-color: $white-color;
+      color: $primary-color;
+
+      &:hover {
+        background-color: lighten($primary-color, 50%);
+      }
+    }
+  }
+}
