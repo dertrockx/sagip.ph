@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 
 import 'assets/font/proxima-nova.css';
 import 'stylesheets/_index.scss';
@@ -13,6 +14,7 @@ class Error extends Component {
   render() {
     return (
       <div className="container-emphasis">
+        <Helmet><title>Error · sagip.ph</title></Helmet>
         <div className="container container-padded container-emphasis message">
           <div className="message-main">
             <img className="icon" src={fail} alt=""/>

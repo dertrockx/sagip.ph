@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 import { Input } from '@common';
 
 import 'assets/font/proxima-nova.css';
@@ -26,6 +27,7 @@ class Registration extends Component {
   render() {
     return (
       <div className="container container-padded">
+        <Helmet><title>Continue Registration · sagip.ph</title></Helmet>
         <h1 className="heading-1 heading-gutter-bottom">Continue Registration</h1>
         <p className="typography-sub">To continue with your registration, please fill out all the necessary details below.</p>
 
