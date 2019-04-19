@@ -3,6 +3,15 @@ import { Input } from '@common';
 
 import 'stylesheets/_index.scss';
 
+const professions = [
+  { key: 'STUDENT', text: 'Student' },
+  { key: 'POLICE', text: 'Police' },
+  { key: 'TEACHER', text: 'Teacher' },
+  { key: 'UTILITY', text: 'Utility' },
+  { key: 'AGENCY', text: 'Agency' },
+  { key: 'OTHERS', text: 'Others' },
+];
+
 class Registration extends Component {
   render() {
     return (
@@ -14,8 +23,8 @@ class Registration extends Component {
           <div className="fields">
             <Input type="text" placeholder="Juan Dela Cruz" label="Name" required />
             <Input type="date" label="Birthdate" required />
+            <Input type="select" label="Profession" placeholder="Select Profession" selectOptions={professions} required />
             <Input type="text" label="Affiliation" placeholder="N/A"/>
-            <Input type="select" label="Profession" required />
           </div>
 
           <button className="submit" type="submit">Register</button>
