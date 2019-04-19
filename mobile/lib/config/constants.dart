@@ -1,4 +1,4 @@
-final String APP_ID = '4yjXSnyXAzhMoi68MXcXMKh75yypS5bX';
+final String APP_ID = 'j6M6UpExGEu67ca9KbTxxzu8o6XAU7Ed';
 
 final DISASTER_LIST = <String> [
   'Extreme Flooding',
@@ -6,4 +6,4 @@ final DISASTER_LIST = <String> [
   'Fire'
 ];
 
-final String APP_SHORT_CODE = '21587419';
+final String APP_SHORT_CODE = '21589027';
