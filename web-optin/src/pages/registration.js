@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Input } from '@common';
 
+import 'assets/font/proxima-nova.css';
 import 'stylesheets/_index.scss';
 
 const professions = [

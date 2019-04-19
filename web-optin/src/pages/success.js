@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import 'assets/font/proxima-nova.css';
+import 'stylesheets/_index.scss';
+
 import success from 'assets/icons/verified.svg';
 
 class Success extends Component {

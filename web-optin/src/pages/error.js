@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import 'assets/font/proxima-nova.css';
+import 'stylesheets/_index.scss';
+
 import fail from 'assets/icons/cancel.svg';
 
 class Error extends Component {
