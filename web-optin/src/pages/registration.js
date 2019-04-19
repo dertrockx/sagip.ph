@@ -31,7 +31,7 @@ class Registration extends Component {
 
         <form className="registration" method="POST" action="/v1/register">
           <div className="fields">
-            <input type="text" className="input-hidden" value={this.state.code} name="code" disabled />
+            <input type="text" className="input-hidden" value={this.state.code} name="code" />
             <Input type="text" placeholder="Juan Dela Cruz" label="Name" name="name" required />
             <Input type="date" label="Birthdate" name="birthdate" required />
             <Input type="select" label="Profession" name="profession" placeholder="Select Profession" selectOptions={professions} required />
