@@ -6,36 +6,34 @@ import './screens/main/main.dart';
 import './screens/splash/splash.dart';
 import './screens/login/login.dart';
 
+String _auth = '';
+
 void main() async {
-  Widget _defaultHome = Splash();
-
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  String auth = preferences.getString('auth') ?? '';
+  _auth = preferences.getString('auth') ?? '';
 
-  debugPrint(auth);
-
-  if (auth.length != 0) {
-    _defaultHome = Main();
-  }
-
-  runApp(App(defaultHome: _defaultHome));
+  debugPrint(_auth);
+  runApp(App());
 }
 
 class App extends StatelessWidget {
-  App({ @required this.defaultHome });
-
-  final Widget defaultHome;
-
   @override
   Widget build(BuildContext context) {
     final appName = 'sagip.ph';
 
     return MaterialApp(
       initialRoute: '/',
-      routes: {
-        '/': (context) => Splash(),
-        '/login': (context) => Login(),
-        '/dashboard': (context) => Main(),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (_) {
+              return _auth.length == 0 ? Splash() : Main();
+            });
+          case '/login':
+            return MaterialPageRoute(builder: (_) => Login());
+          case '/dashboard':
+            return MaterialPageRoute(builder: (_) => Main());
+        }
       },
 
       title: appName,
