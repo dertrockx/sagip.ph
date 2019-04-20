@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:sms/sms.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sagip/config/theme.dart';
 import 'package:sagip/config/constants.dart';
+import 'dart:async';
 
 import './components/location.dart';
 import './components/action.dart';
@@ -37,6 +39,24 @@ class _MainState extends State<Main> {
     }
   }
 
+  Future<void> setDistressDateTime() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    DateTime now = DateTime.now();
+
+    await preferences.setString('distress_datetime', now.toString());
+  }
+
+  Future<DateTime> getDistressDateTime() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String datetime = preferences.getString('distress_datetime') ?? '';
+
+    if (datetime.length == 0) {
+      return DateTime.now().subtract(Duration(hours: 1));
+    }
+
+    return DateTime.parse(datetime).add(Duration(hours: 5));
+  }
+
   void changeDistressNature(String value) {
     setState(() {
       _nature = value;
@@ -55,7 +75,7 @@ class _MainState extends State<Main> {
               ? Center(child: CircularProgressIndicator())
               : Text(this._sendingDistressHasFailed
                 ? 'Sending distress failed. Retry?'
-                : 'Please confirm that you\'re sending this distress notification.'
+                : 'Please confirm that you\'re sending this distress notification.\n\nYou will not be able to send another distress within the next 5 hours after this.'
               )
           ),
           actions: <Widget>[
@@ -112,6 +132,7 @@ class _MainState extends State<Main> {
           });
           Navigator.of(context).pop();
           Fluttertoast.showToast(msg: 'Distress notification sent');
+          this.setDistressDateTime();
           break;
 
         default:
@@ -165,7 +186,15 @@ class _MainState extends State<Main> {
                 nature: this._nature,
 
                 changeDistressNature: this.changeDistressNature,
-                confirmSend: this.confirmSend,
+                confirmSend: () async {
+                  DateTime sent = await getDistressDateTime();
+
+                  if (sent.isBefore(DateTime.now())) {
+                    this.confirmSend();
+                  } else {
+                    Fluttertoast.showToast(msg: 'Sending distress notifications within 5 hours after your first distress are rejected.');
+                  }
+                },
               )
             )
           ),
