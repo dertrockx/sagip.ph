@@ -81,9 +81,11 @@ export const register = async (req, res): Promise<express.Response> => {
 
   try {
     const { data } = await axios.post(`https://developer.globelabs.com.ph/oauth/access_token?app_id=${APP_ID}&app_secret=${APP_SECRET}&code=${code}`);
-    const { subscriber_number } = data;
+    let { subscriber_number } = data;
 
-    const user = await User.findOne({ phoneNumber: `0${subscriber_number}` });
+    subscriber_number = sanitizePhoneNumber(subscriber_number);
+
+    const user = await User.findOne({ phoneNumber: subscriber_number });
     if (!user) return res.status(404).redirect('/error');
 
     Object.assign(user, { name }); // @TODO: Assign other fields
