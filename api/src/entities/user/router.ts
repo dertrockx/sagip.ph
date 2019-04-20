@@ -9,6 +9,6 @@ router
   .get('/user/:userId', Ctrl.getUser)
   .get('/friend/:userId', Ctrl.getFriends)
   .post('/friend/:userId', Ctrl.addFriend)
-  .delete('/friend/:userId', Ctrl.removeFriend)
+  .put('/friend/:userId', Ctrl.removeFriend)
 
 export default router;
