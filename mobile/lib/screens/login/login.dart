@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'dart:convert';
-// import 'package:fluttertoast/fluttertoast.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sagip/config/theme.dart';
 
 import 'package:sagip/components/buttons/primary.dart';
@@ -24,21 +24,23 @@ class _Login extends State<Login> {
         headers: { HttpHeaders.contentTypeHeader: 'application/json' },
         body: json.encode(data)
       );
+      Map<String, dynamic> payload = json.decode(res.body);
 
       Navigator.of(context).pop();
 
       if (res.statusCode != 200) {
-        throw Exception('Failure to login');
+        String exception = payload['error'] ?? 'Failure to login';
+
+        Fluttertoast.showToast(msg: exception);
+        throw Exception(exception);
       }
 
       this._openConfirmation();
 
-      Map<String, dynamic> payload = json.decode(res.body);
       setState(() {
         this.userId = payload['user']['id'];
       });
     } catch (e) {
-      // Fluttertoast.showToast(msg: 'Failure to login');
       debugPrint(e.toString());
     }
   }
@@ -55,19 +57,23 @@ class _Login extends State<Login> {
         headers: { HttpHeaders.contentTypeHeader: 'application/json' },
         body: json.encode(data)
       );
-
-      if (res.statusCode != 200) {
-        throw Exception('Failure to login');
-      }
+      Map<String, dynamic> payload = json.decode(res.body);
 
       Navigator.of(context).pop();
+
+      if (res.statusCode != 200) {
+        String exception = payload['error'] ?? 'Incorrect confirmation code';
+
+        Fluttertoast.showToast(msg: exception);
+        this._openConfirmation();
+        throw Exception(exception);
+      }
 
       // Persist authentication
       SharedPreferences preferences = await SharedPreferences.getInstance();
       await preferences.setString('auth', res.body);
       Navigator.of(context).pushNamedAndRemoveUntil('/dashboard', (Route<dynamic> route) => false);
     } catch (e) {
-      // Fluttertoast.showToast(msg: 'Failure to login');
       debugPrint(e.toString());
     }
   }
