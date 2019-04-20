@@ -16,6 +16,8 @@ class _MainState extends State<Main> {
   bool _isSendingDistress = false;
   bool _sendingDistressHasFailed = false;
 
+  final descriptionController = TextEditingController();
+
   LocationData _location;
   String _nature;
 
@@ -100,12 +102,56 @@ class _MainState extends State<Main> {
     );
   }
 
+  Future<void> getDescription() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Distress Description'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You can accompany your distress with further description. This will be shown for further details on your experience.'),
+                TextField(
+                  maxLength: 200,
+                  maxLines: 3,
+                  autofocus: true,
+                  keyboardType: TextInputType.multiline,
+                  textCapitalization: TextCapitalization.sentences,
+                  decoration: InputDecoration(
+                    hintText: '(Optional)',
+                  ),
+                  controller: this.descriptionController,
+                )
+              ]
+            )
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Close'),
+              onPressed: () { Navigator.of(context).pop(); }
+            ),
+            FlatButton(
+              child: Text('Proceed'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                this.confirmSend();
+              }
+            ),
+          ]
+        );
+      }
+    );
+  }
+
   void reportDistress() {
     final Distress report = Distress(
       intent: 'DISTRESS',
       nature: this._nature,
       long: this._location.longitude,
       lat: this._location.latitude,
+      description: this.descriptionController.text,
     );
 
     debugPrint(report.encode());
@@ -133,6 +179,7 @@ class _MainState extends State<Main> {
           Navigator.of(context).pop();
           Fluttertoast.showToast(msg: 'Distress notification sent');
           this.setDistressDateTime();
+          this.descriptionController.text = '';
           break;
 
         default:
@@ -154,6 +201,12 @@ class _MainState extends State<Main> {
   void initState() {
     super.initState();
     this.getCurrentLocation();
+  }
+
+  @override
+  void dispose() {
+    this.descriptionController.dispose();
+    super.dispose();
   }
 
   @override
@@ -190,7 +243,7 @@ class _MainState extends State<Main> {
                   DateTime sent = await getDistressDateTime();
 
                   if (sent.isBefore(DateTime.now())) {
-                    this.confirmSend();
+                    this.getDescription();
                   } else {
                     Fluttertoast.showToast(msg: 'Sending distress notifications within 5 hours after your first distress are rejected.');
                   }
