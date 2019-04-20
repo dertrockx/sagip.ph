@@ -197,6 +197,39 @@ class _MainState extends State<Main> {
     sender.sendSms(message);
   }
 
+  Future<void> confirmLogout() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Logout'),
+          content: SingleChildScrollView(child: Text('Are you sure that you want to log out?')),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Cancel'),
+              onPressed: () { Navigator.of(context).pop(); }
+            ),
+            FlatButton(
+              child: Text('Log Out'),
+              onPressed: () async {
+                Navigator.of(context).pop();
+                await this.logout();
+              }
+            ),
+          ]
+        );
+      }
+    );
+  }
+
+  Future<void> logout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.clear();
+
+    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -225,6 +258,7 @@ class _MainState extends State<Main> {
                   location: this._location,
 
                   getCurrentLocation: this.getCurrentLocation,
+                  confirmLogout: this.confirmLogout,
                 )
               ),
               padding: EdgeInsets.symmetric(vertical: baseSpacing)
