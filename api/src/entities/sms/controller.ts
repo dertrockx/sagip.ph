@@ -54,7 +54,7 @@ export const optInUser = async (req, res): Promise<express.Response> => {
     const { data } = await axios.post(`https://developer.globelabs.com.ph/oauth/access_token?app_id=${APP_ID}&app_secret=${APP_SECRET}&code=${userCode}`);
     const { access_token, subscriber_number } = data;
 
-    let user = await User.findOne({ phoneNumber: `0${subscriber_number}` });
+    let user = await User.findOne({ phoneNumber: subscriber_number });
     if (user && user.name) {
       // User exists
       return res.redirect('/success');
@@ -64,7 +64,7 @@ export const optInUser = async (req, res): Promise<express.Response> => {
     if (!user) user = new User();
     Object.assign(user, {
       accessToken: access_token,
-      phoneNumber: `0${subscriber_number}`,
+      phoneNumber: subscriber_number,
     });
     await user.save();
 
@@ -89,7 +89,7 @@ export const receiveSMS = async (req, res): Promise<express.Response> => {
   try {
     const sms = new Message();
     Object.assign(sms, {
-      sender: `0${src.slice(7)}`,
+      sender: src.slice(7),
       message,
       messageId,
       fragments,

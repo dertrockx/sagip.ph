@@ -4,6 +4,7 @@ import { getRepository } from 'typeorm';
 import { User } from '@models';
 import { throwError } from '@util';
 
+// @DEPRECATED
 export const registerUser = async (req, res): Promise<express.Response> => {
   try {
     const { phoneNumber, name } = req.body;

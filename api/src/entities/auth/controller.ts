@@ -9,7 +9,7 @@ export const login = async (req, res): Promise<express.Response> => {
   const { phoneNumber } = req.body;
 
   try {
-    const user = await User.findOne({ phoneNumber });
+    const user = await User.findOne({ phoneNumber: phoneNumber });
 
     if (!user || !user.name) {
       return throwError(res, null, { error: 'Invalid mobile number', payload: req.body }, 401);
@@ -29,7 +29,7 @@ export const login = async (req, res): Promise<express.Response> => {
     const { accessToken } = await User.getToken(user.id);
     await sms.send(
       `Hello, there! Your login confirmation code is ${code}. If you didn't request for one, please ignore this message.`,
-      phoneNumber.slice(1),
+      phoneNumber,
       accessToken
     );
 

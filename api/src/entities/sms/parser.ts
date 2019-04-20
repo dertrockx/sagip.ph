@@ -8,8 +8,9 @@ enum intent {
 
 export const parseSMS = async (sender: string, message: string) => {
   try {
-    const buffer = Buffer.from(message, 'base64').toString();
-    const payload = JSON.parse(buffer);
+    // @TODO: Encrypt data
+    // const buffer = Buffer.from(message, 'base64').toString();
+    const payload = JSON.parse(message);
 
     if (typeof payload === 'object') {
       switch (payload.intent) {
