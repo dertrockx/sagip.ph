@@ -125,7 +125,7 @@ class _Login extends State<Login> {
     Widget _input = Padding(
       padding: EdgeInsets.symmetric(vertical: mediumSpacing),
       child: TextField(
-        maxLength: 11,
+        maxLength: 10,
         autofocus: true,
         keyboardType: TextInputType.number,
         textAlign: TextAlign.center,
