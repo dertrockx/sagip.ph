@@ -97,3 +97,38 @@ export const addFriend = async (req, res): Promise<express.Response> => {
     return throwError(res, err);
   }
 }
+
+export const getFriends = async (req, res): Promise<express.Response> => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findOne(userId);
+
+    if (!user) return throwError(res, null, { error: 'User does not exists' }, 404);
+
+    return res.json({ circle: await user.circle });
+  } catch (err) {
+    return throwError(res, err);
+  }
+}
+
+export const removeFriend = async (req, res): Promise<express.Response> => {
+  const { userId } = req.params;
+  const { friendId } = req.body;
+
+  try {
+    const user = await User.findOne(userId);
+    const friend = await User.findOne(friendId);
+
+    if (!user || !friend) return throwError(res, null, { error: 'User does not exists' }, 404);
+
+    await createQueryBuilder()
+      .relation(User, 'circle')
+      .of(user)
+      .remove(friendId);
+
+    return res.json({ friend });
+  } catch (err) {
+    return throwError(res, err);
+  }
+}

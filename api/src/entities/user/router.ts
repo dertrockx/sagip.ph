@@ -7,6 +7,8 @@ router
   .post('/register', Ctrl.registerUser)
   .get('/user', Ctrl.getUsers)
   .get('/user/:userId', Ctrl.getUser)
+  .get('/friend/:userId', Ctrl.getFriends)
   .post('/friend/:userId', Ctrl.addFriend)
+  .delete('/friend/:userId', Ctrl.removeFriend)
 
 export default router;
