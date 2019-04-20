@@ -39,24 +39,21 @@ class Splash extends StatelessWidget {
     );
 
     return Material(
-      child: Column(
-        children: <Widget> [
-          Expanded(
-            flex: 3,
-            child: Container(
-              width: double.infinity,
-              child: SafeArea(child: _top)
-            )
-          ),
-          Expanded(
-            flex: 1,
-            child: Padding(
-              padding: EdgeInsets.all(mediumSpacing),
-              child: _buttons
-            )
-          )
-        ]
-      )
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: largeSpacing),
+        child: Column(
+          children: <Widget> [
+            Expanded(
+              flex: 3,
+              child: Container(
+                width: double.infinity,
+                child: SafeArea(child: _top)
+              )
+            ),
+            Expanded(flex: 1, child: _buttons),
+          ]
+        )
+      ),
     );
   }
 

@@ -7,12 +7,15 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:sagip/components/buttons/primary.dart';
+import './confirmation.dart';
 
 class _Login extends State<Login> {
   final mobileNumberController = TextEditingController();
   final confirmationController = TextEditingController();
 
   int userId;
+  bool _loginEnabled = false;
+  bool _confirmationEnabled = false;
 
   Future<void> login() async {
     this._openLoader();
@@ -41,6 +44,7 @@ class _Login extends State<Login> {
         this.userId = payload['user']['id'];
       });
     } catch (e) {
+      Fluttertoast.showToast(msg: 'Failure to login');
       debugPrint(e.toString());
     }
   }
@@ -98,31 +102,9 @@ class _Login extends State<Login> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Enter Confirmation Code'),
-          content: SingleChildScrollView(
-            child: TextField(
-              maxLength: 6,
-              autofocus: true,
-              textAlign: TextAlign.center,
-              style: largeText,
-              decoration: InputDecoration(
-                counterText: '',
-              ),
-              textCapitalization: TextCapitalization.characters,
-              controller: this.confirmationController,
-            )
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Back'),
-              onPressed: () { Navigator.of(context).pop(); }
-            ),
-            FlatButton(
-              child: Text('Submit'),
-              onPressed: this.sendConfirmationCode
-            ),
-          ]
+        return ConfirmationDialog(
+          confirmationController: this.confirmationController,
+          sendConfirmationCode: this.sendConfirmationCode
         );
       }
     );
@@ -148,7 +130,11 @@ class _Login extends State<Login> {
         decoration: InputDecoration(
           counterText: '',
         ),
-        controller: this.mobileNumberController
+        controller: this.mobileNumberController,
+        onChanged: (String text) {
+          if (text.length == 10) setState(() { _loginEnabled = true; });
+          else setState(() { _loginEnabled = false; });
+        }
       )
     );
 
@@ -156,7 +142,7 @@ class _Login extends State<Login> {
       color: primaryColor,
       child: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: xlargeSpacing, horizontal: baseSpacing),
+          padding: EdgeInsets.symmetric(vertical: xlargeSpacing, horizontal: largeSpacing),
           child: Column(
             children: <Widget> [
               FlutterLogo(size: 72.0),
@@ -164,11 +150,16 @@ class _Login extends State<Login> {
                 padding: EdgeInsets.symmetric(vertical: mediumSpacing),
                 child: Text('Login with your mobile', style: mediumText.merge(invertedText))
               ),
+              Text(
+                'Use your 10-digit mobile number to login (e.g. 917XXXXXXX). You will receive a confirmation code after this.',
+                style: invertedText,
+                textAlign: TextAlign.center,
+              ),
               _input,
               PrimaryButton(
                 color: whiteColor,
                 textColor: primaryColor,
-                onPressed: this.login,
+                onPressed: this._loginEnabled ? this.login : null,
                 child: Text('Login', style: mediumText),
               ),
             ]

@@ -7,6 +7,8 @@ import 'dart:convert';
 import 'dart:async';
 import 'dart:io';
 
+import './phoneNumber.dart';
+
 class _CircleScreen extends State<CircleScreen> {
   int userId;
   final friendNumberController = TextEditingController();
@@ -126,34 +128,9 @@ class _CircleScreen extends State<CircleScreen> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Enter Friend\'s Mobile'),
-          content: SingleChildScrollView(
-            child: TextField(
-              maxLength: 10,
-              autofocus: true,
-              textAlign: TextAlign.center,
-              style: largeText,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                counterText: '',
-              ),
-              controller: this.friendNumberController,
-            )
-          ),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('Cancel'),
-              onPressed: () { Navigator.of(context).pop(); }
-            ),
-            FlatButton(
-              child: Text('Add to Circle'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                this.addFriend();
-              }
-            ),
-          ]
+        return PhoneNumberDialog(
+          friendNumberController: this.friendNumberController,
+          addFriend: this.addFriend,
         );
       }
     );
