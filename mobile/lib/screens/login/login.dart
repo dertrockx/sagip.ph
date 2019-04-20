@@ -29,8 +29,6 @@ class _Login extends State<Login> {
       );
       Map<String, dynamic> payload = json.decode(res.body);
 
-      Navigator.of(context).pop();
-
       if (res.statusCode != 200) {
         String exception = payload['error'] ?? 'Failure to login';
 
@@ -38,12 +36,14 @@ class _Login extends State<Login> {
         throw Exception(exception);
       }
 
+      Navigator.of(context).pop();
       this._openConfirmation();
 
       setState(() {
         this.userId = payload['user']['id'];
       });
     } catch (e) {
+      Navigator.of(context).pop();
       Fluttertoast.showToast(msg: 'Failure to login');
       debugPrint(e.toString());
     }
