@@ -5,6 +5,7 @@ import 'dart:async';
 import './screens/main/main.dart';
 import './screens/splash/splash.dart';
 import './screens/login/login.dart';
+import './screens/circle/circle.dart';
 
 String _auth = '';
 
@@ -33,6 +34,8 @@ class App extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => Login());
           case '/dashboard':
             return MaterialPageRoute(builder: (_) => Main());
+          case '/circle':
+            return MaterialPageRoute(builder: (_) => CircleScreen());
         }
       },
 

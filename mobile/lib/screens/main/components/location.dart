@@ -55,7 +55,7 @@ class LocationSection extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.supervised_user_circle, color: whiteColor, size: mediumSpacing),
             tooltip: 'My Circle',
-            onPressed: () {}
+            onPressed: () { Navigator.pushNamed(context, '/circle'); }
           ),
           IconButton(
             icon: Icon(Icons.exit_to_app, color: whiteColor, size: mediumSpacing),
