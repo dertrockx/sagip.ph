@@ -14,7 +14,7 @@ class User extends ValidEntity {
   @Column()
   phoneNumber: string;
 
-  @Column({ select: false })
+  @Column(/*{ select: false }*/)
   accessToken: string;
 
   @Column({ select: false, nullable: true })
