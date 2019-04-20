@@ -22,10 +22,10 @@ class Sms extends ValidEntity {
   @Column()
   fragments: number;
 
-  @Column()
+  @Column({ nullable: true })
   multipartId: number;
 
-  @Column()
+  @Column({ nullable: true })
   multipartRef: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
