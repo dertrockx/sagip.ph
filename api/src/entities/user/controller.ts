@@ -72,6 +72,8 @@ export const addFriend = async (req, res): Promise<express.Response> => {
     if (!user) return throwError(res, null, { error: 'User not found', payload: req.body }, 404);
     const friend = await User.findOne({ phoneNumber });
 
+    if (!friend) return throwError(res, null, { error: 'Subscriber number not found', payload: req.body }, 404);
+
     if (user.id ===friend.id) {
       return throwError(res, null, {
         error: 'Cannot set same account as circle',
@@ -79,16 +81,12 @@ export const addFriend = async (req, res): Promise<express.Response> => {
       }, 400);
     }
 
-    if (friend && friend.name) {
-      await createQueryBuilder()
-        .relation(User, 'circle')
-        .of(user)
-        .add(friend);
+    await createQueryBuilder()
+      .relation(User, 'circle')
+      .of(user)
+      .add(friend);
 
-      return res.json({ friend });
-    }
-
-    return throwError(res, null, { error: 'Subscriber number not found', payload: req.body }, 404);
+    return res.json({ friend });
   } catch (err) {
     if (err.code === 'ER_DUP_ENTRY') {
       return throwError(res, null, { error: 'Subscriber has already been added', payload: req.body }, 400);
