@@ -13,3 +13,5 @@ export const sphericalLawOfCosines = (long: number, lat: number): string => `
     )
   )
 `;
+
+export const sanitizePhoneNumber = (number: string): string => number[0] === '0' ? number.slice(1) : number;

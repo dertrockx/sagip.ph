@@ -3,13 +3,14 @@ import axios from 'axios';
 
 import { User, Confirmation } from '@models';
 import { types } from '@models/code';
-import { throwError, Sms, generateToken } from '@util';
+import { throwError, Sms, generateToken, sanitizePhoneNumber } from '@util';
 
 export const login = async (req, res): Promise<express.Response> => {
-  const { phoneNumber } = req.body;
+  let { phoneNumber } = req.body;
+  phoneNumber = sanitizePhoneNumber(phoneNumber);
 
   try {
-    const user = await User.findOne({ phoneNumber: phoneNumber });
+    const user = await User.findOne({ phoneNumber });
 
     if (!user || !user.name) {
       return throwError(res, null, { error: 'Invalid mobile number', payload: req.body }, 401);

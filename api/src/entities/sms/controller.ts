@@ -3,7 +3,7 @@ import { getRepository } from 'typeorm';
 import axios from 'axios';
 
 import { Confirmation, User, Sms as Message } from '@models';
-import { throwError, Sms } from '@util';
+import { throwError, Sms, sanitizePhoneNumber } from '@util';
 import { types } from '@models/code';
 
 import parseSMS from './parser';
@@ -52,7 +52,9 @@ export const optInUser = async (req, res): Promise<express.Response> => {
 
   try {
     const { data } = await axios.post(`https://developer.globelabs.com.ph/oauth/access_token?app_id=${APP_ID}&app_secret=${APP_SECRET}&code=${userCode}`);
-    const { access_token, subscriber_number } = data;
+    let { access_token, subscriber_number } = data;
+
+    subscriber_number = sanitizePhoneNumber(subscriber_number);
 
     let user = await User.findOne({ phoneNumber: subscriber_number });
     if (user && user.name) {
