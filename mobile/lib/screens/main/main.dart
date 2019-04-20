@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
 import 'package:sms/sms.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:sagip/config/theme.dart';
 import 'package:sagip/config/constants.dart';
 
@@ -31,6 +32,7 @@ class _MainState extends State<Main> {
         _isGettingLocation = false;
       });
     } catch (e) {
+      Fluttertoast.showToast(msg: 'Failure to get user location');
       debugPrint(e.toString());
     }
   }
@@ -109,6 +111,7 @@ class _MainState extends State<Main> {
             this._isSendingDistress = false;
           });
           Navigator.of(context).pop();
+          Fluttertoast.showToast(msg: 'Distress notification sent');
           break;
 
         default:
@@ -118,6 +121,7 @@ class _MainState extends State<Main> {
           });
 
           Navigator.of(context).pop();
+          Fluttertoast.showToast(msg: 'Failure to send distress');
           this.confirmSend();
       }
     });
