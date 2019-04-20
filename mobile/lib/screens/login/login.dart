@@ -26,6 +26,11 @@ class _Login extends State<Login> {
       );
 
       Navigator.of(context).pop();
+
+      if (res.statusCode != 200) {
+        throw Exception('Failure to login');
+      }
+
       this._openConfirmation();
 
       Map<String, dynamic> payload = json.decode(res.body);
@@ -50,6 +55,10 @@ class _Login extends State<Login> {
         headers: { HttpHeaders.contentTypeHeader: 'application/json' },
         body: json.encode(data)
       );
+
+      if (res.statusCode != 200) {
+        throw Exception('Failure to login');
+      }
 
       Navigator.of(context).pop();
 
