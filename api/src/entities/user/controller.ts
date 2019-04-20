@@ -1,8 +1,8 @@
 import * as express from 'express';
-import { getRepository } from 'typeorm';
+import { getRepository, createQueryBuilder } from 'typeorm';
 
 import { User } from '@models';
-import { throwError } from '@util';
+import { throwError, sanitizePhoneNumber } from '@util';
 
 // @DEPRECATED
 export const registerUser = async (req, res): Promise<express.Response> => {
@@ -56,6 +56,44 @@ export const getUsers = async (_, res): Promise<express.Response> => {
 
     return res.json({ users, count });
   } catch (err) {
+    return throwError(res, err);
+  }
+}
+
+export const addFriend = async (req, res): Promise<express.Response> => {
+  const { userId } = req.params;
+  let { phoneNumber } = req.body;
+
+  try {
+    phoneNumber = sanitizePhoneNumber(phoneNumber);
+
+    const user = await User.findOne(userId);
+
+    if (!user) return throwError(res, null, { error: 'User not found', payload: req.body }, 404);
+    const friend = await User.findOne({ phoneNumber });
+
+    if (user.id ===friend.id) {
+      return throwError(res, null, {
+        error: 'Cannot set same account as circle',
+        payload: req.body
+      }, 400);
+    }
+
+    if (friend && friend.name) {
+      await createQueryBuilder()
+        .relation(User, 'circle')
+        .of(user)
+        .add(friend);
+
+      return res.json({ friend });
+    }
+
+    return throwError(res, null, { error: 'Subscriber number not found', payload: req.body }, 404);
+  } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') {
+      return throwError(res, null, { error: 'Subscriber has already been added', payload: req.body }, 400);
+    }
+
     return throwError(res, err);
   }
 }

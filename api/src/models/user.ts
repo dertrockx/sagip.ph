@@ -1,4 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, OneToMany, getRepository } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+
+  OneToOne,
+  ManyToMany,
+  OneToMany,
+  JoinColumn,
+  JoinTable,
+
+  getRepository,
+} from 'typeorm';
 
 import { ValidEntity } from '@decorators';
 import { Confirmation, Distress, Comment } from '@models';
@@ -35,6 +47,10 @@ class User extends ValidEntity {
 
   @OneToMany(type => Comment, comment => comment.user)
   comments: Comment[];
+
+  @ManyToMany(type => User)
+  @JoinTable()
+  circle: Promise<User[]>;
 
   confirmCode(code: string): Promise<void> {
     return new Promise(async (resolve, reject) => {
