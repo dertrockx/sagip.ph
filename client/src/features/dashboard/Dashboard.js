@@ -63,7 +63,7 @@ class Dashboard extends Component {
 
   render() {
     const { drawerOpen, menuAnchor } = this.state;
-    const { auth, dashboard } = this.props.store;
+    const { auth, dashboard, map } = this.props.store;
     
     return (
       <Root>
@@ -118,6 +118,10 @@ class Dashboard extends Component {
           open={dashboard.status.isDistressOpen}
           onClose={dashboard.toggleDistressModal}
           activeDistress={dashboard.activeDistress}
+          commentToDistress={map.commentToDistress}
+          isAddingComment={map.status.addComment === 'PENDING'}
+          isGettingComments={map.status.getComment === 'PENDING'}
+          comments={map.comments}
         />
       </Root>
     );

@@ -33,6 +33,7 @@ const Map = ({ location, radius, store }) => {
           onClick={() => {
             store.dashboard.changeActiveDistress(marker);
             store.dashboard.toggleDistressModal();
+            store.map.getComments(marker.id);
           }}
           position={{ lat: marker.latitude, lng: marker.longitude }}
           labelAnchor={new window.google.maps.Point(0, 0)}

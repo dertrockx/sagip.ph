@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import TimeAgo from 'react-timeago';
 
+import { CenterLoader } from '@components';
+
 import {
   Dialog,
   DialogTitle,
@@ -8,15 +10,37 @@ import {
   DialogActions,
   DialogContentText,
   Button,
-  TextField
+  TextField,
 } from '@components/material-ui';
 
+import { FloatRight } from '../styles';
+import Comments from './Comments';
+
 class Distress extends Component {
+  state = { comment: '' };
+
+  handleChange = ({ target }) => {
+    this.setState({
+      comment: target.value,
+    });
+  }
+
+  handleSubmit = e => {
+    e.preventDefault();
+
+    const { activeDistress, commentToDistress } = this.props;
+    commentToDistress(activeDistress.id, { content: this.state.comment });
+    this.setState({ comment: '' });
+  }
+
   render() {
     const {
       open,
       onClose,
       activeDistress,
+      isGettingComments,
+      isAddingComment,
+      comments,
     } = this.props;
 
     const {
@@ -54,6 +78,28 @@ class Distress extends Component {
             <br/>
             <b>Contact Number:</b> 0{user.phoneNumber}
           </DialogContentText>
+          {isGettingComments
+            ? <CenterLoader />
+            : <Comments comments={comments} />
+          }
+          <TextField
+            autoFocus
+            margin="dense"
+            label="Add Comment"
+            type="text"
+            value={this.state.comment}
+            onChange={this.handleChange}
+            disabled={isAddingComment}
+            multiline
+            fullWidth
+          />
+          <Button
+            color="primary"
+            disabled={this.state.comment.length === 0 || isAddingComment}
+            onClick={this.handleSubmit}
+          >
+            Add Comment
+          </Button>
         </DialogContent>
         <DialogActions>
           <Button onClick={onClose}>Close</Button>

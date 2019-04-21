@@ -5,3 +5,10 @@ export const getAllDistress = ({ long, lat, distance = 1000 }) => {
   return api.get(`/v1/distress?${qs.stringify({ long, lat, distance})}`);
 }
 
+export const getComments = distressId => {
+  return api.get(`/v1/distress/${distressId}/comment`);
+}
+
+export const addCommentToDistress = (distressId, { content }) => {
+  return api.post(`/v1/distress/${distressId}/comment`, { content });
+}

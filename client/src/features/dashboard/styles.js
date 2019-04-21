@@ -60,3 +60,7 @@ export const MapWrapper = styled.div`
   right: 0;
   position: absolute;
 `;
+
+export const FloatRight = styled.div`
+  margin-left: auto;
+`;

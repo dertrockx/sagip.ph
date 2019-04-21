@@ -6,7 +6,7 @@ import { throwError } from '@util';
 export const addComment = async (req, res): Promise<express.Response> => {
   const { distressId } = req.params;
   const { content } = req.body;
-  const { data: user } = req.user;
+  const { user } = req.session;
 
   try {
     const distress = await Distress.findOne({ id: distressId, isActive: true });
