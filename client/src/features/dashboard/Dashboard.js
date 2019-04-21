@@ -60,6 +60,7 @@ class Dashboard extends Component {
 
   render() {
     const { drawerOpen, menuAnchor } = this.state;
+    const { auth } = this.props.store;
     
     return (
       <Root>
@@ -97,7 +98,7 @@ class Dashboard extends Component {
             </IconButton>
             <PopMenu anchorEl={menuAnchor} open={!!menuAnchor} onClose={this.toggleMenu}>
               <MenuItem onClick={this.toggleMenu}>Account Settings</MenuItem>
-              <MenuItem>Logout</MenuItem>
+              <MenuItem onClick={auth.logout}>Logout</MenuItem>
             </PopMenu>
           </Profile>
           <MapWrapper>

@@ -98,6 +98,10 @@ export const register = async (req, res): Promise<express.Response> => {
   }
 };
 
+export const getSession = (req, res): express.Response => {
+  return res.json({ user: req.session.user || null });
+}
+
 export const logout = (req, res): express.Response => {
   req.session.user = null;
 

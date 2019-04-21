@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
+import * as cors from 'cors';
 
 import { getRepository } from 'typeorm';
 import * as expressSession from 'express-session';
@@ -37,6 +38,11 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(logger('dev'));
+
+    this.app.use(cors({
+      credentials: true,
+      origin: 'http://localhost:3000',
+    }));
 
     this.app.use(expressSession({
       resave: false,

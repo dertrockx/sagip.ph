@@ -32,7 +32,7 @@ export const LoginContainer = styled.div`
   display: flex;
   height: 100vh;
   align-items: center;
-  padding-left: 30px;
+  padding: 0 30px;
 `;
 
 export const LoginButton = styled.div`

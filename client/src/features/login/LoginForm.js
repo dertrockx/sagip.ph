@@ -7,10 +7,10 @@ import {
   Typography,
   TextField,
   InputAdornment,
-  Button
+  Button,
 } from '@components/material-ui';
 
-const Login = () => (
+const Login = ({ login, isLoggingIn }) => (
   <LoginContainer>
     <Card
       elevation={4}
@@ -20,9 +20,10 @@ const Login = () => (
         <Typography variant="h4" gutterBottom>
           Login
         </Typography>
-        <form>
+        <form onSubmit={login}>
           <TextField
             id="phoneNumber"
+            name="phoneNumber"
             label="Phone Number"
             margin="normal"
             variant="outlined"
@@ -34,8 +35,8 @@ const Login = () => (
             fullWidth
           />
           <LoginButton>
-            <Button size="large" variant="contained" color="primary">
-              Login
+            <Button size="large" variant="contained" color="primary" type="submit" disabled={isLoggingIn === 'PENDING'}>
+              {isLoggingIn === 'PENDING' ? '...' : 'LOGIN'}
             </Button>
           </LoginButton>
         </form>
