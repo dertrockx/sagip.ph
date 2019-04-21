@@ -30,7 +30,7 @@ const Map = types
       }
     }),
     getComments: flow(function* getComments(distressId) {
-      self.status.getComments = AsyncState.PENDING;
+      self.status.getComment = AsyncState.PENDING;
       self.comments = [];
 
       try {

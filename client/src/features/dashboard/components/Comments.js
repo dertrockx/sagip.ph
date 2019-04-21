@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import TimeAgo from 'react-timeago';
+import { toJS } from 'mobx';
 
 import {
   List,
@@ -9,7 +10,7 @@ import {
 
 const Comments = ({ comments }) => (
   <List>
-    {comments.reverse().map(comment => (
+    {toJS(comments).reverse().map(comment => (
       <ListItem key={comment.id}>
         <ListItemText
           primary={
