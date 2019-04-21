@@ -7,6 +7,7 @@ import 'dart:io';
 import 'dart:convert';
 
 import 'package:sagip/components/buttons/primary.dart';
+import 'package:sagip/components/logo/logo.dart';
 import './confirmation.dart';
 
 class _Login extends State<Login> {
@@ -145,7 +146,7 @@ class _Login extends State<Login> {
           padding: EdgeInsets.symmetric(vertical: xlargeSpacing, horizontal: largeSpacing),
           child: Column(
             children: <Widget> [
-              FlutterLogo(size: 72.0),
+              Logo(variant: 'dark', dimensions: 72.0),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: mediumSpacing),
                 child: Text('Login with your mobile', style: mediumText.merge(invertedText))

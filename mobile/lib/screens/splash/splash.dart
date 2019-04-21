@@ -4,6 +4,7 @@ import 'package:sagip/config/constants.dart';
 import 'package:flutter_custom_tabs/flutter_custom_tabs.dart';
 
 import 'package:sagip/components/buttons/primary.dart';
+import 'package:sagip/components/logo/logo.dart';
 
 class Splash extends StatelessWidget {
   @override
@@ -11,7 +12,7 @@ class Splash extends StatelessWidget {
     Widget _top = Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget> [
-        FlutterLogo(size: 124.0),
+        Logo(),
         Padding(
           padding: EdgeInsets.symmetric(vertical: baseSpacing),
           child: Text('sagip.ph', style: heroText),
