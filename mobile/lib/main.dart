@@ -36,6 +36,8 @@ class App extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => Main());
           case '/circle':
             return MaterialPageRoute(builder: (_) => CircleScreen());
+          case '/splash':
+            return MaterialPageRoute(builder: (_) => Splash());
         }
       },
 

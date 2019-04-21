@@ -146,7 +146,7 @@ class _Login extends State<Login> {
           padding: EdgeInsets.symmetric(vertical: xlargeSpacing, horizontal: largeSpacing),
           child: Column(
             children: <Widget> [
-              Logo(variant: 'dark', dimensions: 72.0),
+              Logo(variant: 'dark', dimensions: 96.0),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: mediumSpacing),
                 child: Text('Login with your mobile', style: mediumText.merge(invertedText))

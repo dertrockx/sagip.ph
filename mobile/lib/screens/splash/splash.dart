@@ -17,7 +17,7 @@ class Splash extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: baseSpacing),
           child: Text('sagip.ph', style: heroText),
         ),
-        Text('Connecting people during disasters', style: mediumText),
+        Text('Connecting people during disasters', style: mediumText, textAlign: TextAlign.center),
       ]
     );
 

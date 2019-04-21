@@ -227,7 +227,7 @@ class _MainState extends State<Main> {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     preferences.clear();
 
-    Navigator.of(context).pushNamedAndRemoveUntil('/', (Route<dynamic> route) => false);
+    Navigator.of(context).pushNamedAndRemoveUntil('/splash', (Route<dynamic> route) => false);
   }
 
   @override

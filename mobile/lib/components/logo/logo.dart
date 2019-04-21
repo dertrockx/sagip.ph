@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Logo extends StatelessWidget {
   Logo({
     this.variant = 'light', // 'dark' or 'light'
-    this.dimensions = 148.0,
+    this.dimensions = 124.0,
   });
 
   String variant;
