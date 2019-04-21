@@ -24,13 +24,14 @@ import {
 } from '@components/icons';
 
 import Radius from './components/Radius';
+import Distress from './components/Distress';
 
 import { inject, observer } from 'mobx-react';
 import { Root, Container, Menu, Profile, Sidebar, MapWrapper } from './styles';
 
 class Dashboard extends Component {
   state = {
-    drawerOpen: true,
+    drawerOpen: false,
     menuAchor: null,
   };
 
@@ -104,7 +105,7 @@ class Dashboard extends Component {
             </PopMenu>
           </Profile>
           <MapWrapper>
-            {/*this.props.children*/}
+            {this.props.children}
           </MapWrapper>
         </Container>
         <Radius
@@ -112,6 +113,11 @@ class Dashboard extends Component {
           onClose={dashboard.toggleRadiusModal}
           radius={dashboard.radius}
           changeRadius={dashboard.changeRadius}
+        />
+        <Distress
+          open={dashboard.status.isDistressOpen}
+          onClose={dashboard.toggleDistressModal}
+          activeDistress={dashboard.activeDistress}
         />
       </Root>
     );

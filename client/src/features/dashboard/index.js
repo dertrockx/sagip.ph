@@ -5,8 +5,10 @@ import * as AsyncState from 'features/states';
 
 const Status = types.model('DashboardStatus', {
   radius: AsyncState.SUCCESS,
+  distress: AsyncState.PENDING,
 
   isRadiusOpen: false,
+  isDistressOpen: false,
 });
 
 const Location = types.model('Location', {
@@ -19,6 +21,7 @@ const Dashboard = types
   .model('Dashboard', {
     location: Location,
     radius: types.number,
+    activeDistress: types.frozen(),
     status: Status,
   })
   .actions(self => ({
@@ -28,8 +31,14 @@ const Dashboard = types
     toggleRadiusModal() {
       self.status.isRadiusOpen = !self.status.isRadiusOpen;
     },
+    toggleDistressModal() {
+      self.status.isDistressOpen = !self.status.isDistressOpen;
+    },
     changeRadius(radius) {
       self.radius = +radius;
+    },
+    changeActiveDistress(distress) {
+      self.activeDistress = distress;
     }
   }));
 
@@ -39,6 +48,7 @@ export const store = Dashboard.create({
     lng: 0
   },
   radius: 1000,
+  activeDistress: null,
   status: Status.create(),
 });
 export default Dashboard;
