@@ -123,7 +123,7 @@ export const removeFriend = async (req, res): Promise<express.Response> => {
     await createQueryBuilder()
       .relation(User, 'circle')
       .of(user)
-      .remove(friendId);
+      .remove(friend);
 
     return res.json({ friend });
   } catch (err) {
