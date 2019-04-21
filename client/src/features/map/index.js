@@ -1,5 +1,4 @@
 import { types, flow } from 'mobx-state-tree';
-import { User } from 'features/login';
 
 import * as Api from 'api';
 import * as AsyncState from 'features/states';

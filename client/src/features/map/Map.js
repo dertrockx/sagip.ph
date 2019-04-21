@@ -22,7 +22,6 @@ const icon = 'http://mt.google.com/vt/icon?psize=27&font=fonts/Roboto-Bold.ttf&c
 
 const Map = ({ location, radius, store }) => {
   const distress = toJS(store.map.distress);
-  const { dashboard } = store;
   
   return (
     <GoogleMap defaultZoom={12} defaultOptions={config} center={location}>

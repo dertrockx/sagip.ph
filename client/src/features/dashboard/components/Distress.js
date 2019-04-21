@@ -13,7 +13,6 @@ import {
   TextField,
 } from '@components/material-ui';
 
-import { FloatRight } from '../styles';
 import Comments from './Comments';
 
 class Distress extends Component {
