@@ -11,9 +11,9 @@ const Wrapper = styled.div`
   justify-content: center;
 `;
 
-const FullscreenLoader = () => (
+const FullscreenLoader = ({ inverted = false }) => (
   <Wrapper>
-    <CircularProgress />
+    <CircularProgress style={inverted ? { color: 'white' } : {}}/>
   </Wrapper>
 );
 

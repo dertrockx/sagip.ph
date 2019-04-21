@@ -28,7 +28,7 @@ class App extends Component {
         : (
           <Dashboard>
             {status.distress === 'PENDING'
-              ? <p>Loading...</p>
+              ? <FullscreenLoader inverted/>
               : <Map location={location} radius={radius} distress={distress} />
             }
           </Dashboard>
