@@ -113,6 +113,8 @@ class Dashboard extends Component {
           onClose={dashboard.toggleRadiusModal}
           radius={dashboard.radius}
           changeRadius={dashboard.changeRadius}
+          fetchDistress={map.fetchDistress}
+          location={dashboard.location}
         />
         <Distress
           open={dashboard.status.isDistressOpen}

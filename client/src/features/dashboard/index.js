@@ -47,7 +47,7 @@ export const store = Dashboard.create({
     lat: 0,
     lng: 0
   },
-  radius: 1000,
+  radius: 10000,
   activeDistress: null,
   status: Status.create(),
 });

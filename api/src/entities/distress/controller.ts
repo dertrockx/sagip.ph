@@ -7,8 +7,6 @@ import { throwError, sphericalLawOfCosines } from '@util';
 export const addDistress = (user, { nature, long, lat, description }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
     try {
-      // @TODO: Throttle distress requests.
-
       const distress = new Distress();
       Object.assign(distress, {
         nature,
@@ -50,7 +48,7 @@ export const getDistress = async (req, res): Promise<express.Response> => {
         ])
         .addSelect(sphericalLawOfCosines(long, lat), 'distance')
         .where('distress.isActive = TRUE')
-        .having('distance <= :distance', { distance })
+        .having('distance <= :distance', { distance: distance / 1000 })
         .getRawMany();
 
       distress = distress.map(distress => {
@@ -74,7 +72,7 @@ export const getDistress = async (req, res): Promise<express.Response> => {
           description,
           longitude,
           latitude,
-          distance,
+          distance: distance * 1000,
           user: {
             id: user_id,
             name,
@@ -138,7 +136,7 @@ export const getDistressById = async (req, res): Promise<express.Response> => {
         description,
         longitude,
         latitude,
-        distance,
+        distance: distance * 1000,
         user: {
           id: user_id,
           name,

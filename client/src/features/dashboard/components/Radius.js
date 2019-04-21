@@ -21,8 +21,12 @@ class Radius extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.changeRadius(this.state.radius);
-    this.props.onClose();
+    const { changeRadius, fetchDistress, onClose, location } = this.props;
+    const { radius } = this.state;
+
+    changeRadius(radius);
+    fetchDistress({ ...location, radius });
+    onClose();
   }
 
   componentDidMount() {
