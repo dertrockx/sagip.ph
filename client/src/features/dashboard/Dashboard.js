@@ -23,12 +23,14 @@ import {
   ChevronRight as ChevronRightIcon,
 } from '@components/icons';
 
+import Radius from './components/Radius';
+
 import { inject, observer } from 'mobx-react';
 import { Root, Container, Menu, Profile, Sidebar, MapWrapper } from './styles';
 
 class Dashboard extends Component {
   state = {
-    drawerOpen: false,
+    drawerOpen: true,
     menuAchor: null,
   };
 
@@ -60,7 +62,7 @@ class Dashboard extends Component {
 
   render() {
     const { drawerOpen, menuAnchor } = this.state;
-    const { auth } = this.props.store;
+    const { auth, dashboard } = this.props.store;
     
     return (
       <Root>
@@ -77,7 +79,7 @@ class Dashboard extends Component {
                 <Switch checked={false} />
               </ListItemSecondaryAction>
             </ListItem>
-            <ListItem button>
+            <ListItem onClick={dashboard.toggleRadiusModal} button>
               <ListItemIcon><TripOriginIcon /></ListItemIcon>
               <ListItemText primary="Radius" />
               <ListItemSecondaryAction>
@@ -102,9 +104,15 @@ class Dashboard extends Component {
             </PopMenu>
           </Profile>
           <MapWrapper>
-            {this.props.children}
+            {/*this.props.children*/}
           </MapWrapper>
         </Container>
+        <Radius
+          open={dashboard.status.isRadiusOpen}
+          onClose={dashboard.toggleRadiusModal}
+          radius={dashboard.radius}
+          changeRadius={dashboard.changeRadius}
+        />
       </Root>
     );
   }

@@ -48,7 +48,7 @@ export const Sidebar = styled(Drawer)`
   width: ${spacing.sidebar}px;
   flex-shrink: 0;
 
-  .MuiPaper-root-13 {
+  .MuiPaper-root-23 {
     width: ${spacing.sidebar}px;
   }
 `;
