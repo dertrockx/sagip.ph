@@ -11,9 +11,12 @@ export const Container = styled.div`
 `;
 
 export const Splash = styled.div`
-  display: block;
+  display: flex;
   background-color: ${({ theme }) => theme.primary};
   position: relative;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   &::after {
     display: block;

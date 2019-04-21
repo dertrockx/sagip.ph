@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Helmet } from 'react-helmet';
 
 import {
   IconButton,
@@ -67,6 +68,7 @@ class Dashboard extends Component {
     
     return (
       <Root>
+        <Helmet><title>Dashboard · sagip.ph</title></Helmet>
         <Sidebar
           variant="persistent"
           anchor="left"

@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
+import { Helmet } from 'react-helmet';
 
 import LoginForm from './LoginForm';
 import { ConfirmCode } from '@components';
+import { Typography } from '@components/material-ui';
 import { Container, Splash } from './styles';
+
+import logo from 'assets/logo.png';
 
 class Login extends Component {
   state = {
@@ -26,7 +30,14 @@ class Login extends Component {
 
     return (
       <Container>
-        <Splash />
+        <Helmet><title>sagip.ph · Connecting people during disasters</title></Helmet>
+        <Splash>
+          <img src={logo} alt="" height="196" width="196" />
+          <Typography variant="h2" style={{ fontWeight: 'bold', color: 'white' }}>sagip.ph</Typography>
+          <Typography variant="h5" style={{ color: 'white', marginTop: 16, textAlign: 'center' }}>
+            Connecting people during disasters
+          </Typography>
+        </Splash>
         <LoginForm login={this.handleLogin} isLoggingIn={auth.status.login} />
         <ConfirmCode
           open={auth.status.confirmationModalOpen}
