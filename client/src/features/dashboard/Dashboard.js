@@ -59,7 +59,10 @@ class Dashboard extends Component {
 
         dashboard.updateLocation({ lat, lng });
         map.fetchDistress({ lat, lng, radius });
-      }, () => dashboard.setLocationTrackingBlocked());
+      }, () => dashboard.setLocationTrackingBlocked(), {
+        maximumAge: 10000,
+        enableHighAccuracy: true
+      });
     }
   }
 
