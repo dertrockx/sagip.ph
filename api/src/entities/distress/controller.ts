@@ -1,8 +1,8 @@
 import * as express from 'express';
 import { getRepository } from 'typeorm';
 
-import { Distress } from '@models';
-import { throwError, sphericalLawOfCosines } from '@util';
+import { Distress, User } from '@models';
+import { throwError, sphericalLawOfCosines, Sms } from '@util';
 
 export const addDistress = (user, { nature, long, lat, description }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
@@ -17,6 +17,20 @@ export const addDistress = (user, { nature, long, lat, description }): Promise<a
       });
 
       await distress.save();
+
+      // Broadcast to circle
+      const distressUser = await User.findOne(user);
+      const circle = await distressUser.circle;
+
+      for (const friend of circle) {
+        const sms = new Sms();
+        await sms.send(
+          `Your friend ${distressUser.name} sent a distress notification for ${nature.toLowerCase()}.`,
+          friend.phoneNumber,
+          friend.accessToken,
+        );
+      }
+
       return resolve(distress);
     } catch (err) {
       console.log(err);
