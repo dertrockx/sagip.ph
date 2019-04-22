@@ -33,7 +33,7 @@ export const parseSMS = async (sender: string, message: string, connections: obj
             for (const { socket, data } of Object.values(connections)) {
               if (data) {
                 const distress = await Distress.getDistressWithData(data);
-                socket.emit(events.UPDATE_DISTRESS, JSON.stringify({ distress }));
+                if (distress.length) socket.emit(events.UPDATE_DISTRESS, JSON.stringify({ distress }));
               }
             }
           }
