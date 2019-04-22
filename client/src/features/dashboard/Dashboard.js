@@ -54,6 +54,11 @@ class Dashboard extends Component {
     const { dashboard, map } = this.props.store;
     const { radius } = dashboard;
 
+    // Request permission for notification
+    if (window.Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(({ coords }) => {
         const { latitude: lat, longitude: lng } = coords;
