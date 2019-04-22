@@ -2,6 +2,7 @@ import { types, flow } from 'mobx-state-tree';
 
 import * as Api from 'api';
 import * as AsyncState from 'features/states';
+import Toast from '@components/toast';
 
 const Status = types.model('DistressStatus', {
   distress: AsyncState.PENDING,
@@ -37,6 +38,11 @@ const Map = types
         self.comments = data.comments;
         self.status.getComment = AsyncState.SUCCESS;
       } catch (err) {
+        Toast({
+          title: 'Failed to fetch comments',
+          content:  err.response.data.errror,
+          type: 'error'
+        });
         self.status.getComment = AsyncState.ERROR;
       }
     }),
@@ -47,6 +53,11 @@ const Map = types
         const { data } = yield Api.addCommentToDistress(distressId, { content });
         self.comments.push(data);
         self.status.addComment = AsyncState.SUCCESS;
+        Toast({
+          title: 'Successfully posted comment',
+          content:  'Comment will be sent to the user\'s mobile',
+          type: 'error'
+        });
       } catch (err) {
         self.status.addComment = AsyncState.ERROR;
       }

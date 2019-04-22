@@ -8,6 +8,7 @@ import {
   TextField,
   InputAdornment,
   Button,
+  CircularProgress,
 } from '@components/material-ui';
 
 const Login = ({ login, isLoggingIn }) => (
@@ -30,13 +31,16 @@ const Login = ({ login, isLoggingIn }) => (
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">+63</InputAdornment>
-              )
+              ),
             }}
+            inputProps={{ maxLength: 10 }}
+            type="tel"
+            disabled={isLoggingIn === 'PENDING'}
             fullWidth
           />
           <LoginButton>
             <Button size="large" variant="contained" color="primary" type="submit" disabled={isLoggingIn === 'PENDING'}>
-              {isLoggingIn === 'PENDING' ? '...' : 'LOGIN'}
+              {isLoggingIn === 'PENDING' ? <div><CircularProgress size={20} /></div> : 'LOGIN'}
             </Button>
           </LoginButton>
         </form>

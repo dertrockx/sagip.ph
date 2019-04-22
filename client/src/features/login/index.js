@@ -2,6 +2,7 @@ import { types, flow } from 'mobx-state-tree';
 
 import * as Api from 'api';
 import * as AsyncState from 'features/states';
+import Toast from '@components/toast';
 
 const Status = types.model('AuthStatus', {
   login: AsyncState.SUCCESS,
@@ -51,6 +52,11 @@ export const Auth = types
         self.status.login = AsyncState.SUCCESS;
         self.status.confirmationModalOpen = true;
       } catch (err) {
+        Toast({
+          title: 'Failed to login',
+          content:  err.response.data.error,
+          type: 'error'
+        });
         self.status.login = AsyncState.ERROR;
       }
     }),
@@ -75,8 +81,13 @@ export const Auth = types
         yield Api.logout();
         self.user = null;
         self.status.session = AsyncState.SUCCESS;
-      } catch (e) {
+      } catch (err) {
         self.status.session = AsyncState.ERROR;
+        Toast({
+          title: 'Failed to login',
+          content:  err.response.data.errror,
+          type: 'error'
+        });
       }
     }),
   }));
