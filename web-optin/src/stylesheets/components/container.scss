@@ -1,6 +1,7 @@
 .container {
   width: 90%;
   max-width: $breakpoint-tablet;
+  min-height: -webkit-fill-available;
   min-height: 100vh;
   margin: auto;
 

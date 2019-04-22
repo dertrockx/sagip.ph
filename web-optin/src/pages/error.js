@@ -21,9 +21,9 @@ class Error extends Component {
             <h1 className="heading-h1 heading-centered">
               An Error Occured
             </h1>
-          </div>
-          <div className="message-action">
-            <button className="submit exit" onClick={this.handleExit}>Back to Application</button>
+            <h3 className="heading-h3-heading-centered typography-light">
+              Please retry registering your account
+            </h3>
           </div>
         </div>
       </div>
