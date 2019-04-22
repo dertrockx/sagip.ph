@@ -99,10 +99,9 @@ class Dashboard extends Component {
           </Menu>
           <Profile>
             <IconButton onClick={this.toggleMenu}>
-              <Avatar>RS</Avatar>
+              <Avatar>{auth.user.name[0]}</Avatar>
             </IconButton>
             <PopMenu anchorEl={menuAnchor} open={!!menuAnchor} onClose={this.toggleMenu}>
-              <MenuItem onClick={this.toggleMenu}>Account Settings</MenuItem>
               <MenuItem onClick={auth.logout}>Logout</MenuItem>
             </PopMenu>
           </Profile>
