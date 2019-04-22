@@ -12,6 +12,11 @@ import Dashboard from 'features/dashboard/Dashboard';
 class App extends Component {
   componentDidMount() {
     this.props.store.auth.getSession();
+
+    // Request permission for notification
+    if (window.Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
   }
 
   render() {

@@ -30,6 +30,18 @@ const Map = types
       }
     }),
     updateDistress(distress) {
+      if (window.Notification.permission === 'granted') {
+        const current = self.distress.map(d => d.id);
+        const newDistress = distress.filter(d => !current.includes(d.id));
+
+        newDistress.forEach(update => {
+          new Notification('New distress notification received', {
+            body: `${update.user.name} reported ${update.nature} around your area`,
+            icon: 'https://sagip.ph/favicon.ico'
+          });
+        });
+      }
+
       self.distress = [...distress];
     },
     getComments: flow(function* getComments(distressId) {

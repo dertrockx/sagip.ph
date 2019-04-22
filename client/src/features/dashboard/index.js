@@ -1,6 +1,5 @@
 import { types } from 'mobx-state-tree';
 
-// import * as Api from 'api';
 import * as AsyncState from 'features/states';
 
 const Status = types.model('DashboardStatus', {
