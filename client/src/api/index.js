@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: process.env.API_URL || 'http://localhost:8081',
+  baseURL: process.env.NODE_ENV === 'production' ? 'https://api.sagip.ph' : 'http://localhost:8081',
   withCredentials: true,
   headers: {
     'Cache-Control': 'no-cache',
