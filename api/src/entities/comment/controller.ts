@@ -1,7 +1,7 @@
 import * as express from 'express';
 
 import { Comment, Distress } from '@models';
-import { throwError } from '@util';
+import { throwError, Sms } from '@util';
 
 export const addComment = async (req, res): Promise<express.Response> => {
   const { distressId } = req.params;
@@ -21,6 +21,15 @@ export const addComment = async (req, res): Promise<express.Response> => {
     });
 
     await comment.save();
+
+    const { phoneNumber, accessToken } = await distress.user;
+
+    const sms = new Sms();
+    await sms.send(
+      `${user.name} (0${user.phoneNumber}) responded to your distress:\n${content.trim()}`,
+      phoneNumber,
+      accessToken
+    );
 
     return res.json({
       id: comment.id,
