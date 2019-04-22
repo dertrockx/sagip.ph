@@ -39,61 +39,65 @@ export const addDistress = (user, { nature, long, lat, description }): Promise<a
   });
 }
 
+export const getDistressWithData = async ({ long, lat, distance }): Promise<any> => {
+  const distress = await getRepository(Distress)
+    .createQueryBuilder('distress')
+    .leftJoin('distress.user', 'user')
+    .select([
+      'distress.id',
+      'nature',
+      'distress.timestamp',
+      'description',
+      'longitude',
+      'latitude',
+
+      'user.id',
+      'name',
+      'phoneNumber'
+    ])
+    .addSelect(sphericalLawOfCosines(long, lat), 'distance')
+    .where('distress.isActive = TRUE')
+    .having('distance <= :distance', { distance: distance / 1000 })
+    .getRawMany();
+
+  return distress.map(distress => {
+    const {
+      distress_id,
+      distress_timestamp,
+      user_id,
+      nature,
+      description,
+      longitude,
+      latitude,
+      name,
+      phoneNumber,
+      distance
+    } = distress;
+
+    return {
+      id: distress_id,
+      timestamp: distress_timestamp,
+      nature,
+      description,
+      longitude,
+      latitude,
+      distance: distance * 1000,
+      user: {
+        id: user_id,
+        name,
+        phoneNumber,
+      }
+    };
+  });
+}
+
 export const getDistress = async (req, res): Promise<express.Response> => {
   try {
     let { long, lat, distance } = req.query;
     [long, lat, distance] = [long, lat, distance].map(parseFloat);
 
     if (long && lat && distance) {
-      let distress = await getRepository(Distress)
-        .createQueryBuilder('distress')
-        .leftJoin('distress.user', 'user')
-        .select([
-          'distress.id',
-          'nature',
-          'distress.timestamp',
-          'description',
-          'longitude',
-          'latitude',
-
-          'user.id',
-          'name',
-          'phoneNumber'
-        ])
-        .addSelect(sphericalLawOfCosines(long, lat), 'distance')
-        .where('distress.isActive = TRUE')
-        .having('distance <= :distance', { distance: distance / 1000 })
-        .getRawMany();
-
-      distress = distress.map(distress => {
-        const {
-          distress_id,
-          distress_timestamp,
-          user_id,
-          nature,
-          description,
-          longitude,
-          latitude,
-          name,
-          phoneNumber,
-          distance
-        } = distress;
-
-        return {
-          id: distress_id,
-          timestamp: distress_timestamp,
-          nature,
-          description,
-          longitude,
-          latitude,
-          distance: distance * 1000,
-          user: {
-            id: user_id,
-            name,
-            phoneNumber,
-          }
-        };
-      });
+      const distress = await getDistressWithData({ long, lat, distance });
 
       return res.json({ distress, count: distress.length });
     }

@@ -2,11 +2,13 @@ import { User } from '@models';
 import * as Distress from '../distress/controller';
 import { Sms } from '@util';
 
+import events from '../../events';
+
 enum intent {
   DISTRESS = 'DISTRESS',
 }
 
-export const parseSMS = async (sender: string, message: string) => {
+export const parseSMS = async (sender: string, message: string, connections: object) => {
   try {
     // @TODO: Encrypt data
     // const buffer = Buffer.from(message, 'base64').toString();
@@ -26,6 +28,14 @@ export const parseSMS = async (sender: string, message: string) => {
               user.phoneNumber,
               user.accessToken,
             );
+
+            // Broadcast to sockets
+            for (const { socket, data } of Object.values(connections)) {
+              if (data) {
+                const distress = await Distress.getDistressWithData(data);
+                socket.emit(events.UPDATE_DISTRESS, JSON.stringify({ distress }));
+              }
+            }
           }
           break;
       }

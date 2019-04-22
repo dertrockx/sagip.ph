@@ -2,10 +2,13 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
 import * as cors from 'cors';
+import * as socketIo from 'socket.io';
 
+import { createServer, Server } from 'http';
 import { getRepository } from 'typeorm';
 import * as expressSession from 'express-session';
 import { TypeormStore } from 'connect-typeorm';
+import events from './events';
 import { Session } from '@models';
 
 import router from './router';
@@ -14,23 +17,49 @@ class App {
   public app: express.Express;
   public port: number;
   public sessionRepository = getRepository(Session);
+  public connections: object;
+
+  private server: Server;
+  private io: any;
 
   constructor() {
     this.app = express();
     this.port = this._setPort();
+
+    this.server = createServer(this.app);
+    this.io = socketIo(this.server);
+    this.connections = {};
     
     this._configureServer();
     this._setRoutes();
+    this._prepareSockets();
   }
 
   public start = (): void => {
-    this.app.listen(this.port, (err: any): void => {
+    this.server.listen(this.port, (err: any): void => {
       if (err) {
         console.log(err);
         return;
       }
 
       console.log(`> Listening on port ${this.port}`);
+    });
+  }
+
+  private _prepareSockets = (): void => {
+    this.io.on(events.CONNECT, (socket: any) => {
+      this.connections[socket.id] = { socket };
+      console.log(`SOCKET ${socket.id} has connected`);
+
+      socket.on(events.DISTRESS_WATCH, payload => {
+        this.connections[socket.id].data = payload;
+        console.log(`SOCKET ${socket.id} enabled real-time distress update`);
+      });
+
+      socket.on(events.DISCONNECT, () => {
+        delete this.connections[socket.id];
+        console.log(`SOCKET ${socket.id} has disconnected`);
+      });
     });
   }
 
@@ -52,6 +81,13 @@ class App {
       }).connect(this.sessionRepository),
       secret: 'sagipsagip'
     }));
+
+    this.app.use((req, _, next) => {
+      req.socket = this.io;
+      (<any> req).connections = this.connections;
+
+      next();
+    });
   }
 
   private _setPort = (): number => +process.env.PORT || 8081;
