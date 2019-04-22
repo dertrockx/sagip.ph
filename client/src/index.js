@@ -14,9 +14,11 @@ import './index.css';
 import App from './app/App';
 import theme, { themeVars } from './theme';
 
-onSnapshot(store, snapshot => {
-  console.dir(snapshot);
-});
+if (process.env.NODE_ENV === 'development') {
+  onSnapshot(store, snapshot => {
+    console.dir(snapshot);
+  });
+}
 
 ReactDOM.render(
   <Provider store={store}>
