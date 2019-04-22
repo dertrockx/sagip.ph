@@ -33,7 +33,6 @@ const Login = ({ login, isLoggingIn }) => (
                 <InputAdornment position="start">+63</InputAdornment>
               ),
             }}
-            inputProps={{ maxLength: 10 }}
             type="tel"
             disabled={isLoggingIn === 'PENDING'}
             fullWidth
