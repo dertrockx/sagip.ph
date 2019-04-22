@@ -34,6 +34,7 @@ class Dashboard extends Component {
   state = {
     drawerOpen: false,
     menuAchor: null,
+    isLocationBlocked: false,
   };
 
   toggleDrawer = () => {
@@ -58,7 +59,7 @@ class Dashboard extends Component {
 
         dashboard.updateLocation({ lat, lng });
         map.fetchDistress({ lat, lng, radius });
-      });
+      }, () => dashboard.setLocationTrackingBlocked());
     }
   }
 

@@ -9,6 +9,7 @@ const Status = types.model('DashboardStatus', {
 
   isRadiusOpen: false,
   isDistressOpen: false,
+  isLocationBlocked: false,
 });
 
 const Location = types.model('Location', {
@@ -39,7 +40,10 @@ const Dashboard = types
     },
     changeActiveDistress(distress) {
       self.activeDistress = distress;
-    }
+    },
+    setLocationTrackingBlocked() {
+      self.status.isLocationBlocked = true;
+    },
   }));
 
 export const store = Dashboard.create({
