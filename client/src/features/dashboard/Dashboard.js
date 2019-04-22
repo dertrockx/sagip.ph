@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import { inject, observer } from 'mobx-react';
 
 import {
   IconButton,
@@ -24,10 +25,10 @@ import {
   ChevronRight as ChevronRightIcon,
 } from '@components/icons';
 
+import { subscribe, attachListener } from 'api/sockets';
 import Radius from './components/Radius';
 import Distress from './components/Distress';
 
-import { inject, observer } from 'mobx-react';
 import { Root, Container, Menu, Profile, Sidebar, MapWrapper } from './styles';
 
 class Dashboard extends Component {
@@ -59,6 +60,9 @@ class Dashboard extends Component {
 
         dashboard.updateLocation({ lat, lng });
         map.fetchDistress({ lat, lng, radius });
+
+        subscribe({ long: lng, lat, distance: radius });
+        attachListener(map.updateDistress);
       }, () => dashboard.setLocationTrackingBlocked(), {
         maximumAge: 10000,
         enableHighAccuracy: true

@@ -29,6 +29,9 @@ const Map = types
         self.status.distress = AsyncState.ERROR;
       }
     }),
+    updateDistress(distress) {
+      self.distress = [...distress];
+    },
     getComments: flow(function* getComments(distressId) {
       self.status.getComment = AsyncState.PENDING;
       self.comments = [];

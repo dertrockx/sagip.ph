@@ -9,6 +9,7 @@ import {
   Button,
   TextField
 } from '@components/material-ui';
+import { subscribe } from 'api/sockets';
 
 class Radius extends Component {
   state = { radius: 0 };
@@ -26,6 +27,7 @@ class Radius extends Component {
 
     changeRadius(radius);
     fetchDistress({ ...location, radius });
+    subscribe({ long: location.lng, lat: location.lat, distance: radius });
     onClose();
   }
 

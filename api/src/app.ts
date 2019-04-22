@@ -52,7 +52,7 @@ class App {
       console.log(`SOCKET ${socket.id} has connected`);
 
       socket.on(events.DISTRESS_WATCH, payload => {
-        this.connections[socket.id].data = payload;
+        this.connections[socket.id].data = JSON.parse(payload);
         console.log(`SOCKET ${socket.id} enabled real-time distress update`);
       });
 
