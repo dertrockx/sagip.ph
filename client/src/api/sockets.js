@@ -9,10 +9,15 @@ const socket = openSocket(
 const events = {
   DISTRESS_WATCH: 'DISTRESS_WATCH',
   UPDATE_DISTRESS: 'UPDATE_DISTRESS',
+  DETACH_WATCH: 'DETACH_WATCH',
 }
 
 export const subscribe = ({ long, lat, distance, age }) => {
   socket.emit(events.DISTRESS_WATCH, JSON.stringify({ long, lat, distance, age }));
+}
+
+export const unsubscribe = () => {
+  socket.emit(events.DETACH_WATCH);
 }
 
 export const attachListener = callback => {

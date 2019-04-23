@@ -4,6 +4,8 @@ import * as Api from 'api';
 import * as AsyncState from 'features/states';
 import Toast from '@components/toast';
 
+import { unsubscribe } from 'api/sockets';
+
 const Status = types.model('AuthStatus', {
   login: AsyncState.SUCCESS,
   confirm: AsyncState.SUCCESS,
@@ -51,6 +53,7 @@ export const Auth = types
         self.userId = data.user.id;
         self.status.login = AsyncState.SUCCESS;
         self.status.confirmationModalOpen = true;
+        unsubscribe();
       } catch (err) {
         Toast({
           title: 'Failed to login',

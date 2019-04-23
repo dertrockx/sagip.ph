@@ -60,6 +60,14 @@ class App {
         console.log(`SOCKET ${socket.id} enabled real-time distress update`);
       });
 
+      socket.on(events.DETACH_WATCH, () => {
+        const sock = this.connections[socket.id];
+
+        if (sock.hasOwnProperty('data')) {
+          sock.data = null;
+        }
+      });
+
       socket.on(events.DISCONNECT, () => {
         delete this.connections[socket.id];
         console.log(`SOCKET ${socket.id} has disconnected`);
