@@ -23,6 +23,7 @@ class Dashboard extends Component {
   state = {
     menuAchor: null,
     isLocationBlocked: false,
+    hasAttachedListener: false,
   };
 
   toggleMenu = ({ currentTarget }) => {
@@ -31,14 +32,9 @@ class Dashboard extends Component {
     });
   }
 
-  componentDidMount() {
+  queryUserLocation = () => {
     const { dashboard, map } = this.props.store;
     const { radius } = dashboard;
-
-    // Request permission for notification
-    if (window.Notification.permission !== 'granted') {
-      Notification.requestPermission();
-    }
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(({ coords }) => {
@@ -48,12 +44,25 @@ class Dashboard extends Component {
         map.fetchDistress({ lat, lng, radius });
 
         subscribe({ long: lng, lat, distance: radius });
-        attachListener(map.updateDistress);
+
+        if (!this.state.hasAttachedListener) {
+          attachListener(map.updateDistress);
+          this.setState({ hasAttachedListener: true });
+        }
       }, () => dashboard.setLocationTrackingBlocked(), {
         maximumAge: 10000,
         enableHighAccuracy: true
       });
     }
+  }
+
+  componentDidMount() {
+    // Request permission for notification
+    if (window.Notification.permission !== 'granted') {
+      Notification.requestPermission();
+    }
+
+    this.queryUserLocation();
   }
 
   render() {
@@ -75,6 +84,7 @@ class Dashboard extends Component {
             </IconButton>
             <PopMenu anchorEl={menuAnchor} open={!!menuAnchor} onClose={this.toggleMenu}>
               <MenuItem onClick={dashboard.toggleRadiusModal}>Distress Settings</MenuItem>
+              <MenuItem onClick={this.queryUserLocation}>Refresh Location</MenuItem>
               <MenuItem onClick={auth.logout}>Logout</MenuItem>
             </PopMenu>
           </Profile>
