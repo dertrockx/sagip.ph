@@ -29,7 +29,7 @@ export const login = async (req, res): Promise<express.Response> => {
     const sms = new Sms();
     const { accessToken } = await User.getToken(user.id);
     await sms.send(
-      `Hello, there! Your login confirmation code is ${code}. If you didn't request for one, please ignore this message.`,
+      `Hello there! Your login confirmation code is ${code}.\n\nIf you didn't request for one, please ignore this message.`,
       phoneNumber,
       accessToken
     );
