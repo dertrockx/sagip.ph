@@ -45,7 +45,7 @@ const Map = ({ location, radius, store }) => {
           }}
           zIndex={1}
         >
-          <div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <span
               style={{
                 fontWeight: 'bold',
@@ -56,6 +56,21 @@ const Map = ({ location, radius, store }) => {
               {marker.nature.toUpperCase()}
             </span>
             {marker.user.name}
+            <span
+              style={{
+                backgroundColor: '#4f4f4f',
+                color: 'white',
+                borderRadius: 20,
+                display: 'inline-flex',
+                marginLeft: 8,
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: 16, height: 16,
+                fontSize: 12,
+              }}
+            >
+              {marker.comments}
+            </span>
           </div>
         </MarkerWithLabel>
       ))}

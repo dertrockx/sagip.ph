@@ -71,7 +71,7 @@ const Map = types
         Toast({
           title: 'Successfully posted comment',
           content:  'Comment will be sent to the user\'s mobile',
-          type: 'error'
+          type: 'success'
         });
       } catch (err) {
         self.status.addComment = AsyncState.ERROR;
