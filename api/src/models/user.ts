@@ -45,7 +45,7 @@ class User extends ValidEntity {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', select: false })
   timestamp: Date;
 
-  @Column({ default: () => true, select: false })
+  @Column({ default: () => true })
   isActive: boolean;
 
   @OneToOne(type => Confirmation, confirmation => confirmation.user)
