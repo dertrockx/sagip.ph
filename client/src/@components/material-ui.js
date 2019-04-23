@@ -8,8 +8,10 @@ export { default as CardActions } from '@material-ui/core/CardActions';
 export { default as CardContent } from '@material-ui/core/CardContent';
 
 export { default as Input } from '@material-ui/core/Input';
+export { default as InputLabel } from '@material-ui/core/InputLabel';
 export { default as InputAdornment } from '@material-ui/core/InputAdornment';
 export { default as TextField } from '@material-ui/core/TextField';
+export { default as FormControl } from '@material-ui/core/FormControl';
 
 export { default as Dialog } from '@material-ui/core/Dialog';
 export { default as DialogActions } from '@material-ui/core/DialogActions';
@@ -25,6 +27,7 @@ export { default as ListItemText } from '@material-ui/core/ListItemText';
 export { default as ListSubheader } from '@material-ui/core/ListSubheader';
 
 export { default as Switch } from '@material-ui/core/Switch';
+export { default as Select } from '@material-ui/core/Select';
 export { default as Avatar } from '@material-ui/core/Avatar';
 
 export { default as Drawer } from '@material-ui/core/Drawer';

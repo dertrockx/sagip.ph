@@ -11,8 +11,8 @@ const events = {
   UPDATE_DISTRESS: 'UPDATE_DISTRESS',
 }
 
-export const subscribe = ({ long, lat, distance }) => {
-  socket.emit(events.DISTRESS_WATCH, JSON.stringify({ long, lat, distance }));
+export const subscribe = ({ long, lat, distance, age }) => {
+  socket.emit(events.DISTRESS_WATCH, JSON.stringify({ long, lat, distance, age }));
 }
 
 export const attachListener = callback => {

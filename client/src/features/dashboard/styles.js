@@ -18,7 +18,6 @@ export const Container = styled.div`
   color: white;
   position: relative;
   overflow: hidden;
-  margin-left: ${props => props.open ? '0px' : `-${spacing.sidebar}px`};
   transition: margin 225ms cubic-bezier(0.0, 0, 0.2, 1);
 `;
 
@@ -59,4 +58,9 @@ export const MapWrapper = styled.div`
   top: 0;
   right: 0;
   position: absolute;
+`;
+
+export const FormRow = styled.div`
+  display: flex;
+  align-items: center;
 `;

@@ -17,12 +17,12 @@ const Map = types
     status: Status,
   })
   .actions(self => ({
-    fetchDistress: flow(function* fetchDistress({ lat, lng, radius }) {
+    fetchDistress: flow(function* fetchDistress({ lat, lng, radius, age }) {
       self.status.distress = AsyncState.PENDING;
       self.distress = [];
 
       try {
-        const { data } = yield Api.getAllDistress({ lat, long: lng, distance: radius });
+        const { data } = yield Api.getAllDistress({ lat, long: lng, distance: radius, age });
         self.distress = data.distress;
         self.status.distress = AsyncState.SUCCESS;
       } catch (err) {

@@ -7,41 +7,22 @@ import {
   Avatar,
   Menu as PopMenu,
   MenuItem,
-
-  List,
-  ListSubheader,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  ListItemSecondaryAction,
-
-  Switch,
 } from '@components/material-ui';
 
 import {
-  Menu as MenuIcon,
-  Notifications as NotificationsIcon,
-  TripOrigin as TripOriginIcon,
-  ChevronRight as ChevronRightIcon,
+  Settings as SettingsIcon,
 } from '@components/icons';
 
 import { subscribe, attachListener } from 'api/sockets';
 import Radius from './components/Radius';
 import Distress from './components/Distress';
 
-import { Root, Container, Menu, Profile, Sidebar, MapWrapper } from './styles';
+import { Root, Container, Menu, Profile, MapWrapper } from './styles';
 
 class Dashboard extends Component {
   state = {
-    drawerOpen: false,
     menuAchor: null,
     isLocationBlocked: false,
-  };
-
-  toggleDrawer = () => {
-    this.setState({
-      drawerOpen: !this.state.drawerOpen
-    });
   };
 
   toggleMenu = ({ currentTarget }) => {
@@ -82,32 +63,10 @@ class Dashboard extends Component {
     return (
       <Root>
         <Helmet><title>Dashboard · sagip.ph</title></Helmet>
-        <Sidebar
-          variant="persistent"
-          anchor="left"
-          open={drawerOpen}
-        >
-          <List subheader={<ListSubheader>Settings</ListSubheader>}>
-            <ListItem>
-              <ListItemIcon><NotificationsIcon /></ListItemIcon>
-              <ListItemText primary="Notifications" />
-              <ListItemSecondaryAction>
-                <Switch checked={false} />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem onClick={dashboard.toggleRadiusModal} button>
-              <ListItemIcon><TripOriginIcon /></ListItemIcon>
-              <ListItemText primary="Radius" />
-              <ListItemSecondaryAction>
-                <ChevronRightIcon />
-              </ListItemSecondaryAction>
-            </ListItem>
-          </List>
-        </Sidebar>
         <Container open={drawerOpen}>
           <Menu>
-            <IconButton color="inherit" onClick={this.toggleDrawer}>
-              <MenuIcon />
+            <IconButton color="inherit" onClick={dashboard.toggleRadiusModal}>
+              <SettingsIcon />
             </IconButton>
           </Menu>
           <Profile>
@@ -115,6 +74,7 @@ class Dashboard extends Component {
               <Avatar>{auth.user.name[0]}</Avatar>
             </IconButton>
             <PopMenu anchorEl={menuAnchor} open={!!menuAnchor} onClose={this.toggleMenu}>
+              <MenuItem onClick={dashboard.toggleRadiusModal}>Distress Settings</MenuItem>
               <MenuItem onClick={auth.logout}>Logout</MenuItem>
             </PopMenu>
           </Profile>

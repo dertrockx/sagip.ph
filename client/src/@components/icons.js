@@ -1,4 +1,5 @@
 export { default as Menu } from '@material-ui/icons/Menu';
+export { default as Settings } from '@material-ui/icons/Settings';
 export { default as Notifications } from '@material-ui/icons/Notifications';
 export { default as TripOrigin } from '@material-ui/icons/TripOrigin';
 

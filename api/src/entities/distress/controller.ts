@@ -39,7 +39,7 @@ export const addDistress = (user, { nature, long, lat, description }): Promise<a
   });
 }
 
-export const getDistressWithData = async ({ long, lat, distance, age = 24 * 60 }): Promise<any> => {
+export const getDistressWithData = async ({ long, lat, distance, age = 24 }): Promise<any> => {
   let query = getRepository(Distress)
     .createQueryBuilder('distress')
     .leftJoin('distress.user', 'user')
@@ -61,10 +61,8 @@ export const getDistressWithData = async ({ long, lat, distance, age = 24 * 60 }
     ])
     .addSelect(sphericalLawOfCosines(long, lat), 'distance')
     .where('distress.isActive = TRUE')
-    .having('distance <= :distance AND age <= :age', { distance: distance / 1000, age })
+    .having('distance <= :distance AND age <= :age', { distance: distance / 1000, age: +age * 60 })
     .groupBy('distress.id')
-
-  console.log(age);
 
   const distress = await query.getRawMany();
 
@@ -87,7 +85,7 @@ export const getDistressWithData = async ({ long, lat, distance, age = 24 * 60 }
     return {
       id: distress_id,
       timestamp: distress_timestamp,
-      age: +age, // in minutes
+      age: +age / 60, // in minutes
       nature,
       description,
       longitude,
