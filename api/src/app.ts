@@ -70,7 +70,7 @@ class App {
 
     this.app.use(cors({
       credentials: true,
-      origin: process.env.CLIENT_URL || 'http://localhost:3000',
+      origin: process.env.NODE_ENV === 'production' ? 'https://api.sagip.ph' : 'http://localhost:3000',
     }));
 
     this.app.use(expressSession({
