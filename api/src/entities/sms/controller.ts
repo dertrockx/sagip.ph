@@ -57,7 +57,7 @@ export const optInUser = async (req, res): Promise<express.Response> => {
     subscriber_number = sanitizePhoneNumber(subscriber_number);
 
     let user = await User.findOne({ phoneNumber: subscriber_number });
-    if (user && user.name) {
+    if (user && user.name && user.isActive) {
       // User exists
       return res.redirect('/success');
     }
@@ -67,6 +67,7 @@ export const optInUser = async (req, res): Promise<express.Response> => {
     Object.assign(user, {
       accessToken: access_token,
       phoneNumber: subscriber_number,
+      isActive: true,
     });
     await user.save();
 
@@ -114,5 +115,20 @@ export const receiveSMS = async (req, res): Promise<express.Response> => {
     return res.sendStatus(200);
   } catch (err) {
     return throwError(res, err);
+  }
+}
+
+export const unsubscribe = async (req, res): Promise<express.Response> => {
+  const { unsubscribed } = req.body;
+
+  try {
+    const user = await User.findOne({ phoneNumber: unsubscribed.subscriber_number });
+    user.isActive = false;
+    await user.save();
+
+    return res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    return res.sendStatus(500);
   }
 }

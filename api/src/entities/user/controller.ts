@@ -69,10 +69,10 @@ export const addFriend = async (req, res): Promise<express.Response> => {
 
     const user = await User.findOne(userId);
 
-    if (!user) return throwError(res, null, { error: 'User not found', payload: req.body }, 404);
+    if (!user || !user.name || !user.isActive) return throwError(res, null, { error: 'User not found', payload: req.body }, 404);
     const friend = await User.findOne({ phoneNumber });
 
-    if (!friend) return throwError(res, null, { error: 'Subscriber number not found', payload: req.body }, 404);
+    if (!friend || !friend.name || !friend.isActive) return throwError(res, null, { error: 'Subscriber number not found', payload: req.body }, 404);
 
     if (user.id ===friend.id) {
       return throwError(res, null, {

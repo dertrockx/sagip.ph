@@ -12,7 +12,7 @@ export const login = async (req, res): Promise<express.Response> => {
   try {
     const user = await User.findOne({ phoneNumber });
 
-    if (!user || !user.name) {
+    if (!user || !user.name || !user.isActive) {
       return throwError(res, null, { error: 'Invalid mobile number', payload: req.body }, 401);
     }
 
