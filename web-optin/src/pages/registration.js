@@ -6,12 +6,24 @@ import 'assets/font/proxima-nova.css';
 import 'stylesheets/_index.scss';
 
 const professions = [
-  { key: 'STUDENT', text: 'Student' },
-  { key: 'POLICE', text: 'Police' },
-  { key: 'TEACHER', text: 'Teacher' },
-  { key: 'UTILITY', text: 'Utility' },
-  { key: 'AGENCY', text: 'Agency' },
-  { key: 'OTHERS', text: 'Others' },
+  'Architecture and Construction',
+  'Agriculture',
+  'Arts and Communications',
+  'Business Management and Administration',
+  'Education and Training',
+  'Engineering',
+  'Finance',
+  'Government and Public Administration',
+  'Health Science',
+  'Human Services',
+  'Information Technology',
+  'Law, Public Safety, Corrections and Security',
+  'Manufacturing',
+  'Marketing, Sales and Service',
+  'Tourism',
+  'Transportation, Distribution, and Logistics',
+  'Student',
+  'Others'
 ];
 
 class Registration extends Component {

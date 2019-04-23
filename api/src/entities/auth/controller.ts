@@ -88,7 +88,12 @@ export const register = async (req, res): Promise<express.Response> => {
     const user = await User.findOne({ phoneNumber: subscriber_number });
     if (!user) return res.status(404).redirect('/error');
 
-    Object.assign(user, { name }); // @TODO: Assign other fields
+    Object.assign(user, {
+      name,
+      profession,
+      affiliation,
+      birthdate: new Date(birthdate),
+    });
     await user.save()
 
     return res.redirect('/success');

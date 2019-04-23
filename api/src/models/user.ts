@@ -29,8 +29,18 @@ class User extends ValidEntity {
   @Column(/*{ select: false }*/)
   accessToken: string;
 
+  // @DEPRECATED
   @Column({ select: false, nullable: true })
   friendToken: string;
+
+  @Column()
+  birthdate: Date;
+
+  @Column()
+  profession: string;
+
+  @Column({ nullable: true })
+  affiliation: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', select: false })
   timestamp: Date;

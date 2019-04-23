@@ -13,8 +13,8 @@ const Input = ({ name, type, label, required, placeholder, selectOptions = [], o
     {type === 'select' ?
       <select name={name} id={name} className="input" onChange={onChange}>
         {placeholder && (<option value="" disabled selected>{placeholder}</option>)}
-        {selectOptions.map(({ key, text }, i) => (
-          <option key={i} value={key}>{text}</option>
+        {selectOptions.map((text, i) => (
+          <option key={i} value={text}>{text}</option>
         ))}
       </select>
     : (
