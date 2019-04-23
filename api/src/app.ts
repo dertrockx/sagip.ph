@@ -9,7 +9,7 @@ import { getRepository } from 'typeorm';
 import * as expressSession from 'express-session';
 import { TypeormStore } from 'connect-typeorm';
 import events from './events';
-import { Session } from '@models';
+import { Session, Distress } from '@models';
 
 import router from './router';
 
@@ -33,6 +33,10 @@ class App {
     this._configureServer();
     this._setRoutes();
     this._prepareSockets();
+
+    if (process.env.NODE_ENV === 'production') {
+      this._setupCron();
+    }
   }
 
   public start = (): void => {
@@ -95,6 +99,13 @@ class App {
   private _setRoutes = (): void => {
     this.app.use('/v1/', router);
     this.app.use(express.static(__dirname + '/../public'));
+  }
+
+  private _setupCron = (): void => {
+    setInterval(() => {
+      // Purge distress with 2 and half day age
+      Distress.purge();
+    }, 1000 * 60);
   }
 }
 

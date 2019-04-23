@@ -31,6 +31,19 @@ class Distress extends ValidEntity {
 
   @OneToMany(type => Comment, comment => comment.distress)
   comments: Promise<Comment[]>
+
+  static async purge() {
+    const toPurge = await this.createQueryBuilder('distress')
+      .select(['id', 'TIMESTAMPDIFF(MINUTE, distress.timestamp, NOW()) AS age'])
+      .having('age > :maxAge', { maxAge: 60 * 60 })
+      .getRawMany();
+
+    for (const distress of toPurge) {
+      const purge = await this.findOne(distress.id);
+      purge.isActive = false;
+      await purge.save();
+    }
+  }
 }
 
 export default Distress;
