@@ -33,10 +33,10 @@ class User extends ValidEntity {
   @Column({ select: false, nullable: true })
   friendToken: string;
 
-  @Column()
+  @Column({ nullable: true })
   birthdate: Date;
 
-  @Column()
+  @Column({ nullable: true })
   profession: string;
 
   @Column({ nullable: true })
