@@ -64,6 +64,8 @@ export const getDistressWithData = async ({ long, lat, distance, age = 24 * 60 }
     .having('distance <= :distance AND age <= :age', { distance: distance / 1000, age })
     .groupBy('distress.id')
 
+  console.log(age);
+
   const distress = await query.getRawMany();
 
   return distress.map(distress => {
@@ -107,7 +109,7 @@ export const getDistress = async (req, res): Promise<express.Response> => {
     [long, lat, distance] = [long, lat, distance].map(parseFloat);
 
     if (long && lat && distance) {
-      const distress = await getDistressWithData({ long, lat, distance, age: age ? +age : null });
+      const distress = await getDistressWithData({ long, lat, distance, age });
 
       return res.json({ distress, count: distress.length });
     }
