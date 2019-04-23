@@ -2,7 +2,7 @@ import * as express from 'express';
 import { getRepository } from 'typeorm';
 
 import { Distress, User } from '@models';
-import { throwError, sphericalLawOfCosines, Sms } from '@util';
+import { throwError, sphericalLawOfCosines, Sms, HOURS } from '@util';
 
 export const addDistress = (user, { nature, long, lat, description }): Promise<any> => {
   return new Promise(async (resolve, reject) => {
@@ -39,31 +39,38 @@ export const addDistress = (user, { nature, long, lat, description }): Promise<a
   });
 }
 
-export const getDistressWithData = async ({ long, lat, distance }): Promise<any> => {
-  const distress = await getRepository(Distress)
+export const getDistressWithData = async ({ long, lat, distance, age = 24 * 60 }): Promise<any> => {
+  let query = getRepository(Distress)
     .createQueryBuilder('distress')
     .leftJoin('distress.user', 'user')
+    .leftJoin('distress.comments', 'comment')
     .select([
       'distress.id',
       'nature',
       'distress.timestamp',
+      'TIMESTAMPDIFF(MINUTE, distress.timestamp, NOW()) AS age',
       'description',
       'longitude',
       'latitude',
 
       'user.id',
       'name',
-      'phoneNumber'
+      'phoneNumber',
+
+      'COUNT(comment.id) AS comments'
     ])
     .addSelect(sphericalLawOfCosines(long, lat), 'distance')
     .where('distress.isActive = TRUE')
-    .having('distance <= :distance', { distance: distance / 1000 })
-    .getRawMany();
+    .having('distance <= :distance AND age <= :age', { distance: distance / 1000, age })
+    .groupBy('distress.id')
+
+  const distress = await query.getRawMany();
 
   return distress.map(distress => {
     const {
       distress_id,
       distress_timestamp,
+      age,
       user_id,
       nature,
       description,
@@ -71,17 +78,20 @@ export const getDistressWithData = async ({ long, lat, distance }): Promise<any>
       latitude,
       name,
       phoneNumber,
-      distance
+      distance,
+      comments,
     } = distress;
 
     return {
       id: distress_id,
       timestamp: distress_timestamp,
+      age: +age, // in minutes
       nature,
       description,
       longitude,
       latitude,
       distance: distance * 1000,
+      comments: +comments,
       user: {
         id: user_id,
         name,
@@ -93,11 +103,11 @@ export const getDistressWithData = async ({ long, lat, distance }): Promise<any>
 
 export const getDistress = async (req, res): Promise<express.Response> => {
   try {
-    let { long, lat, distance } = req.query;
+    let { long, lat, distance, age } = req.query;
     [long, lat, distance] = [long, lat, distance].map(parseFloat);
 
     if (long && lat && distance) {
-      const distress = await getDistressWithData({ long, lat, distance });
+      const distress = await getDistressWithData({ long, lat, distance, age: age ? +age : null });
 
       return res.json({ distress, count: distress.length });
     }
