@@ -51,7 +51,9 @@ class Distress extends Component {
       description,
       timestamp
     } = activeDistress || {};
+
     const formattedNature = `${nature ? nature[0].toUpperCase() : ''}${nature.slice(1)}`;
+    const formattedDistance = (distance / 1000).toFixed(4);
 
     return (
       <Dialog open={open} onClose={onClose} scroll="paper">
@@ -67,7 +69,7 @@ class Distress extends Component {
             <br/>
             <b>Longitude:</b> {longitude}
             <br/>
-            <b>Distance:</b> {distance} kilometers
+            <b>Distance:</b> {formattedDistance < 1 ? `${distance.toFixed(4)} meters` : `${formattedDistance} kilometers`}
             {description && (
               <Fragment>
                 <br/>
