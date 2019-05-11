@@ -14,15 +14,16 @@ import {
   FormControl,
   Typography
 } from '@components/material-ui';
-import { subscribe } from 'api/sockets';
+import Toast from '@components/toast';
 
+import { subscribe } from 'api/sockets';
 import { FormRow } from '../styles';
 
 class Radius extends Component {
   state = { radius: 0, units: 'km', age: 24 };
 
   handleInputChange = ({ target }) => {
-    if (target.value > 0) {
+    if (target.value >= 0) {
       this.setState({ [target.name]: target.value });
     }
   }
@@ -44,10 +45,18 @@ class Radius extends Component {
     const { radius, units, age } = this.state;
     const normalizedRadius = radius * (units === 'km' ? 1000 : 1);
 
-    changeRadius(normalizedRadius);
-    fetchDistress({ ...location, radius: normalizedRadius, age });
-    subscribe({ long: location.lng, lat: location.lat, distance: normalizedRadius, age });
-    onClose();
+    if (normalizedRadius > 0 && age > 0) {
+      changeRadius(normalizedRadius);
+      fetchDistress({ ...location, radius: normalizedRadius, age });
+      subscribe({ long: location.lng, lat: location.lat, distance: normalizedRadius, age });
+      onClose();
+    } else {
+      Toast({
+        title: 'Invalid input',
+        content:  'Value should be greater than 0',
+        type: 'error'
+      });
+    }
   }
 
   componentDidMount() {
